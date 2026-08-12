@@ -17,6 +17,7 @@ from openpilot.selfdrive.boardd.set_time import set_time
 from openpilot.system.hardware import HARDWARE, PC
 from openpilot.selfdrive.manager.helpers import unblock_stdout, write_onroad_params
 from openpilot.selfdrive.manager.mapd_installer import VERSION
+from openpilot.selfdrive.mapd_manager import enforce_korea_osm_selection
 from openpilot.selfdrive.manager.process import ensure_running
 from openpilot.selfdrive.manager.process_config import managed_processes
 from openpilot.selfdrive.athena.registration import register, UNREGISTERED_DONGLE_ID, is_registered_device
@@ -120,6 +121,11 @@ def manager_init() -> None:
   for k, v in default_params:
     if params.get(k) is None:
       params.put(k, v)
+
+  # The release-c3-BDv2 build supports South Korea offline maps only. Set the
+  # selection before the prebuilt UI starts so map downloads do not depend on
+  # fetching the remote country list.
+  enforce_korea_osm_selection(params)
 
   # parameters set by Environment Variables
   if os.getenv("HANDSMONITORING") is not None:

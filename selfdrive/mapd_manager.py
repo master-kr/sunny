@@ -25,6 +25,21 @@ mem_params = Params("/dev/shm/params") if platform.system() != "Darwin" else par
 COMMON_DIR = '/data/media/0/osm'
 MAPD_BIN_DIR = '/data/openpilot/third_party/pfeiferj-mapd'
 MAPD_PATH = os.path.join(MAPD_BIN_DIR, 'mapd')
+OSM_COUNTRY_CODE = "KR"
+OSM_COUNTRY_TITLE = "South Korea"
+
+
+def enforce_korea_osm_selection(persistent_params=params):
+  """Keep offline map downloads limited to South Korea.
+
+  The prebuilt UI fetches its country list from GitHub at runtime. Setting the
+  selection here keeps the map controls usable even when that request fails.
+  """
+  persistent_params.put_bool("OsmLocal", True)
+  persistent_params.put("OsmLocationName", OSM_COUNTRY_CODE)
+  persistent_params.put("OsmLocationTitle", OSM_COUNTRY_TITLE)
+  persistent_params.remove("OsmStateName")
+  persistent_params.remove("OsmStateTitle")
 
 
 def get_files_for_cleanup():
@@ -121,14 +136,13 @@ def filter_nations_and_states(nations: [str], states: [str] = None):
 
 
 def update_osm_db():
+  enforce_korea_osm_selection()
+
   # last_downloaded_date = float(params.get('OsmDownloadedDate', encoding='utf-8') or 0.0)
   # if params.get_bool("OsmDbUpdatesCheck") or time.time() - last_downloaded_date >= 604800:  # 7 days * 24 hours/day * 60
   if params.get_bool("OsmDbUpdatesCheck"):
     cleanup_OLD_OSM_data(get_files_for_cleanup())
-    country = params.get('OsmLocationName', encoding='utf-8')
-    state = params.get('OsmStateName', encoding='utf-8') or "All"
-    filtered_nations, filtered_states = filter_nations_and_states([country], [state])
-    request_refresh_osm_location_data(filtered_nations, filtered_states)
+    request_refresh_osm_location_data([OSM_COUNTRY_CODE])
 
   if not mem_params.get("OSMDownloadBounds"):
     mem_params.put("OSMDownloadBounds", "")
