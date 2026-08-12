@@ -236,9 +236,13 @@ def get_car(logcan, sendcan, experimental_long_allowed, num_pandas=1):
   candidate, fingerprints, vin, car_fw, source, exact_match = fingerprint(logcan, sendcan, num_pandas)
 
   params = Params()
-  if params.get("CarModel") is not None:
-    car_model = params.get("CarModel")
-    candidate = car_model.decode("utf-8")
+  car_model = params.get("CarModel")
+  if car_model:
+    selected_candidate = car_model.decode("utf-8")
+    if selected_candidate in interfaces:
+      candidate = selected_candidate
+    else:
+      cloudlog.event("ignoring invalid manually selected car", candidate=selected_candidate, error=True)
 
   if candidate is None:
     cloudlog.event("car doesn't match any fingerprints", fingerprints=fingerprints, error=True)

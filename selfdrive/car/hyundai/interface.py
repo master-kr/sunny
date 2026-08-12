@@ -34,7 +34,12 @@ class CarInterface(CarInterfaceBase):
     # FIXME: the Optima Hybrid 2017 uses a different SCC12 checksum
     ret.dashcamOnly = candidate in ({CAR.KIA_OPTIMA_H, })
 
-    hda2 = Ecu.adas in [fw.ecu for fw in car_fw]
+    # CAN-FD Hyundai vehicles can be identified without a successful firmware query by
+    # looking for the camera's LKA steering messages. Use CanBus to select the external
+    # panda buses in a comma three + red panda setup (CAM is bus 6, not bus 2).
+    cam_can = CanBus(None, False, fingerprint).CAM
+    hda2 = (Ecu.adas in [fw.ecu for fw in car_fw] or
+            0x50 in fingerprint[cam_can] or 0x110 in fingerprint[cam_can])
     CAN = CanBus(None, hda2, fingerprint)
 
     if candidate in CANFD_CAR:
