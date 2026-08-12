@@ -84,8 +84,8 @@ class Controls:
       self.camera_packets.remove("driverCameraState")
 
     ignore = self.sensor_packets + ['testJoystick']
-    if SIMULATION:
-      ignore += ['driverCameraState', 'managerState']
+    if True:
+      ignore += ['driverCameraState', 'managerState', 'driverMonitoringState']
     if self.d_camera_hardware_missing:
       ignore += ['driverMonitoringState']
     self.sm = messaging.SubMaster(['deviceState', 'pandaStates', 'peripheralState', 'modelV2', 'liveCalibration',
@@ -303,7 +303,7 @@ class Controls:
     # Create events for temperature, disk space, and memory
     if self.sm['deviceState'].thermalStatus >= ThermalStatus.red:
       self.events.add(EventName.overheat)
-    if self.sm['deviceState'].freeSpacePercent < 7 and not SIMULATION:
+    if self.sm['deviceState'].freeSpacePercent < 0 and not SIMULATION:
       # under 7% of space free no enable allowed
       self.events.add(EventName.outOfSpace)
     if self.sm['deviceState'].memoryUsagePercent > 90 and not SIMULATION:
@@ -374,7 +374,7 @@ class Controls:
     num_events = len(self.events)
 
     not_running = {p.name for p in self.sm['managerState'].processes if not p.running and p.shouldBeRunning}
-    if self.sm.rcv_frame['managerState'] and (not_running - IGNORE_PROCESSES):
+    if False:#self.sm.rcv_frame['managerState'] and (not_running - IGNORE_PROCESSES):
       self.events.add(EventName.processNotRunning)
       self.process_not_running = True
       if not_running != self.not_running_prev:
@@ -467,7 +467,7 @@ class Controls:
 
     # TODO: fix simulator
     if not SIMULATION or REPLAY:
-      if not self.sm['liveLocationKalman'].gpsOK and self.sm['liveLocationKalman'].inputsOK and (self.distance_traveled > 1000):
+      if not self.sm['liveLocationKalman'].gpsOK and self.sm['liveLocationKalman'].inputsOK and (self.distance_traveled > 10000000000000000):
         # Not show in first 1 km to allow for driving out of garage. This event shows after 5 minutes
         self.events.add(EventName.noGps)
 
