@@ -15,7 +15,7 @@ SpeedLimitWarningSettings::SpeedLimitWarningSettings(QWidget* parent) : QWidget(
   std::vector<QString> speed_limit_warning_texts{tr("Off"), tr("Display"), tr("Chime")};
   speed_limit_warning_settings = new ButtonParamControl(
     "SpeedLimitWarningType", tr("Speed Limit Warning"),
-    "",
+    tr("Chooses how the driver is warned when vehicle speed exceeds the detected speed limit plus the configured warning offset. The active choice is highlighted below."),
     "../assets/offroad/icon_blank.png",
     speed_limit_warning_texts,
     380

@@ -30,11 +30,12 @@ SoftwarePanel::SoftwarePanel(QWidget* parent) : ListWidget(parent) {
   addItem(onroadLbl);
 
   // current version
-  versionLbl = new LabelControl(tr("Current Version"), "");
+  versionLbl = new LabelControl(tr("Current Version"), tr("Shows the installed software version, branch, and commit."));
   addItem(versionLbl);
 
   // download update btn
-  downloadBtn = new ButtonControl(tr("Download"), tr("CHECK"));
+  downloadBtn = new ButtonControl(tr("Download"), tr("CHECK"),
+                                  tr("Checks for a newer revision and downloads it while the vehicle is off and the device is connected to the internet."));
   connect(downloadBtn, &ButtonControl::clicked, [=]() {
     downloadBtn->setEnabled(false);
     if (downloadBtn->text() == tr("CHECK")) {
@@ -46,7 +47,8 @@ SoftwarePanel::SoftwarePanel(QWidget* parent) : ListWidget(parent) {
   addItem(downloadBtn);
 
   // install update btn
-  installBtn = new ButtonControl(tr("Install Update"), tr("INSTALL"));
+  installBtn = new ButtonControl(tr("Install Update"), tr("INSTALL"),
+                                 tr("Installs the downloaded update and reboots the device. Do not disconnect power during installation."));
   connect(installBtn, &ButtonControl::clicked, [=]() {
     installBtn->setEnabled(false);
     params.putBool("DoReboot", true);
@@ -54,7 +56,8 @@ SoftwarePanel::SoftwarePanel(QWidget* parent) : ListWidget(parent) {
   addItem(installBtn);
 
   // branch selecting
-  targetBranchBtn = new ButtonControl(tr("Target Branch"), tr("SELECT"));
+  targetBranchBtn = new ButtonControl(tr("Target Branch"), tr("SELECT"),
+                                      tr("Selects the Git branch used for future updates. Changing branches can alter vehicle support and settings."));
   connect(targetBranchBtn, &ButtonControl::clicked, [=]() {
     auto current = params.get("GitBranch");
     QStringList branches = QString::fromStdString(params.get("UpdaterAvailableBranches")).split(",");
@@ -77,7 +80,8 @@ SoftwarePanel::SoftwarePanel(QWidget* parent) : ListWidget(parent) {
   addItem(targetBranchBtn);
 
   // uninstall button
-  auto uninstallBtn = new ButtonControl(tr("Uninstall %1").arg(getBrand()), tr("UNINSTALL"));
+  auto uninstallBtn = new ButtonControl(tr("Uninstall %1").arg(getBrand()), tr("UNINSTALL"),
+                                        tr("Removes the installed driving software from this device after confirmation."));
   connect(uninstallBtn, &ButtonControl::clicked, [&]() {
     if (ConfirmationDialog::confirm(tr("Are you sure you want to uninstall?"), tr("Uninstall"), this)) {
       params.putBool("DoUninstall", true);

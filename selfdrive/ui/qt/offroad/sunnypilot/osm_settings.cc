@@ -4,7 +4,7 @@ OsmPanel::OsmPanel(QWidget *parent) : QFrame(parent) {
   main_layout = new QStackedLayout(this);
 
   const auto list = new ListWidget(this, false);
-  list->addItem(mapdVersion = new LabelControl(tr("Mapd Version"), "Loading..."));
+  list->addItem(mapdVersion = new LabelControl(tr("Mapd Version"), tr("Shows the installed map service version.")));
   list->addItem(setupOsmDeleteMapsButton(parent));
   list->addItem(offlineMapsETA = new LabelControl(tr("Offline Maps ETA"), ""));
   list->addItem(offlineMapsElapsed = new LabelControl(tr("Time Elapsed"), ""));
@@ -29,17 +29,19 @@ OsmPanel::OsmPanel(QWidget *parent) : QFrame(parent) {
 }
 
 ButtonControl *OsmPanel::setupOsmDeleteMapsButton(QWidget *parent) {
-  osmDeleteMapsBtn = new ButtonControl(tr("Downloaded Maps"), tr("Delete Maps"));  // Updated on updateLabels()
+  osmDeleteMapsBtn = new ButtonControl(
+    tr("Downloaded Maps"), tr("Delete Maps"),
+    tr("Shows the storage used by offline maps. Delete Maps removes all downloaded offline map data from the device."));  // Updated on updateLabels()
   connect(osmDeleteMapsBtn, &ButtonControl::clicked, [=]() {
-    if (showConfirmationDialog(parent, "This will delete ALL downloaded maps\n\nAre you sure you want to delete all the maps?", "Yes, delete all the maps.")) {
+    if (showConfirmationDialog(parent, tr("This will delete ALL downloaded maps\n\nAre you sure you want to delete all the maps?"), tr("Yes, delete all the maps."))) {
       QtConcurrent::run([=]() {
         QDir dir(MAP_PATH);
         osmDeleteMapsBtn->setEnabled(false);
-        osmDeleteMapsBtn->setText("Deleting...");
+        osmDeleteMapsBtn->setText(tr("Deleting..."));
         dir.removeRecursively();
         updateMapSize();
         osmDeleteMapsBtn->setEnabled(true);
-        osmDeleteMapsBtn->setText("DELETE");
+        osmDeleteMapsBtn->setText(tr("DELETE"));
       });
       updateLabels();
     }
@@ -48,7 +50,9 @@ ButtonControl *OsmPanel::setupOsmDeleteMapsButton(QWidget *parent) {
 }
 
 ButtonControl *OsmPanel::setupOsmUpdateButton(QWidget *parent) {
-  osmUpdateBtn = new ButtonControl(tr("Database Update"), tr("CHECK"));  // Updated on updateLabels()
+  osmUpdateBtn = new ButtonControl(
+    tr("Database Update"), tr("CHECK"),
+    tr("Checks for updates to the selected offline map database and starts downloading changed files."));  // Updated on updateLabels()
   connect(osmUpdateBtn, &ButtonControl::clicked, [=]() {
     if (osm_download_in_progress && !download_failed_state) {
       updateLabels();
@@ -62,10 +66,12 @@ ButtonControl *OsmPanel::setupOsmUpdateButton(QWidget *parent) {
 }
 
 ButtonControl *OsmPanel::setupOsmDownloadButton(QWidget *parent) {
-  osmDownloadBtn = new ButtonControl(tr("Country"), tr("SELECT"));
+  osmDownloadBtn = new ButtonControl(
+    tr("Country"), tr("SELECT"),
+    tr("Selects the country whose offline map data will be downloaded. This branch provides South Korea as the supported country selection."));
   connect(osmDownloadBtn, &ButtonControl::clicked, [=]() {
     osmDownloadBtn->setEnabled(false);
-    osmDownloadBtn->setValue("Fetching Country list...");
+    osmDownloadBtn->setValue(tr("Fetching Country list..."));
     const std::vector<std::tuple<QString, QString, QString, QString>> locations = getOsmLocations();
     osmDownloadBtn->setEnabled(true);
     osmDownloadBtn->setValue("");
@@ -104,11 +110,13 @@ ButtonControl *OsmPanel::setupOsmDownloadButton(QWidget *parent) {
 }
 
 ButtonControl *OsmPanel::setupUsStatesButton(QWidget *parent) {
-  usStatesBtn = new ButtonControl(tr("State"), tr("SELECT"));
+  usStatesBtn = new ButtonControl(
+    tr("State"), tr("SELECT"),
+    tr("Selects a state when the United States map region is selected."));
   connect(usStatesBtn, &ButtonControl::clicked, [=]() {
-    const std::tuple<QString, QString> allStatesOption = std::make_tuple("All States (~4.8 GB)", "All");
+    const std::tuple<QString, QString> allStatesOption = std::make_tuple(tr("All States (~4.8 GB)"), "All");
     usStatesBtn->setEnabled(false);
-    usStatesBtn->setValue("Fetching State list...");
+    usStatesBtn->setValue(tr("Fetching State list..."));
     const std::vector<std::tuple<QString, QString, QString, QString>> locations = getUsStatesLocations(allStatesOption);
     usStatesBtn->setEnabled(true);
     usStatesBtn->setValue("");
@@ -226,7 +234,7 @@ void OsmPanel::updateDownloadProgress() {
   const auto updateButtonText = processUpdateStatus(pending_update_check, total_files, downloaded_files, osmDownloadProgress, download_failed_state);
 
   osmUpdateBtn->setValue(tr(updateButtonText.c_str()));
-  osmUpdateBtn->setText(tr(osm_download_in_progress && !download_failed_state ? "Check status" : "Force Update"));
+  osmUpdateBtn->setText(osm_download_in_progress && !download_failed_state ? tr("Check status") : tr("Force Update"));
   osmDeleteMapsBtn->setValue(formatSize(mapsDirSize));
 }
 
@@ -237,15 +245,15 @@ int OsmPanel::extractIntFromJson(const QJsonObject& json, const QString& key) {
 std::string OsmPanel::processUpdateStatus(bool pending_update, int total_files, int downloaded_files, const QJsonObject& json, bool failed_state) {
   if (pending_update && !osm_download_in_progress && !total_files) {
     lastDownloadedTimePoint.reset();
-    return "Download starting...";
+    return tr("Download starting...").toStdString();
   } else if (failed_state) {
-    return "Error: Invalid download. Retry.";
+    return tr("Error: Invalid download. Retry.").toStdString();
   } else if (osm_download_in_progress && total_files > downloaded_files) {
     return formatDownloadStatus(json).toStdString();
   } else if (osm_download_in_progress && downloaded_files >= total_files) {
     osm_download_in_progress = false;
     lastDownloadedTimePoint.reset();
-    return "Download complete!";
+    return tr("Download complete!").toStdString();
   }
 
   if (lastDownloadedTimePoint.has_value()) {

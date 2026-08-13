@@ -110,7 +110,7 @@ private:
   static QString calculateElapsedTime(const QJsonObject &jsonData, const std::chrono::system_clock::time_point &startTime) {
     using namespace std::chrono;
     if (!jsonData.contains("total_files") || !jsonData.contains("downloaded_files"))
-      return "Calculating...";
+      return tr("Calculating...");
 
     const int totalFiles = jsonData["total_files"].toInt();
     const int downloadedFiles = jsonData["downloaded_files"].toInt();
@@ -119,7 +119,7 @@ private:
 
     const long elapsed = duration_cast<seconds>(system_clock::now() - startTime).count();
 
-    if (elapsed == 0 || downloadedFiles == 0) return "Calculating...";
+    if (elapsed == 0 || downloadedFiles == 0) return tr("Calculating...");
 
     return formatTime(elapsed);
   }
@@ -132,7 +132,7 @@ private:
     constexpr int minDataPoints = 3;
     constexpr int historySize = 10;
 
-    static QString lastETA = "Calculating ETA...";
+    static QString lastETA = tr("Calculating ETA...");
 
     if (duration_cast<seconds>(steady_clock::now() - lastUpdateTime).count() < 1) {
       return lastETA;
@@ -188,7 +188,7 @@ private:
 
   QString formatSize(quint64 size) const {
     if (size == 0 && (!mapSizeFuture.has_value() || mapSizeFuture.value().isRunning())) {
-      return QString("Calculating...");
+      return tr("Calculating...");
     }
 
     constexpr qint64 kb = 1024;

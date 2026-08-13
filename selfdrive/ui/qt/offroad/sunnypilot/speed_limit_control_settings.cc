@@ -15,7 +15,7 @@ SlcSettings::SlcSettings(QWidget* parent) : QWidget(parent) {
   std::vector<QString> speed_limit_engage_texts{tr("Auto"), tr("User Confirm")};
   speed_limit_engage_settings = new ButtonParamControl(
     "SpeedLimitEngageType", tr("Engage Mode"),
-    "",
+    tr("Chooses whether speed-limit control applies a detected limit automatically or waits for driver confirmation. The active choice is highlighted below."),
     "../assets/offroad/icon_blank.png",
     speed_limit_engage_texts,
     440
@@ -80,7 +80,7 @@ void SlcSettings::updateToggles() {
       speed_limit_offset_settings->setEnabled(speed_limit_control);
       slvo->setEnabled(speed_limit_control && QString::fromStdString(params.get("SpeedLimitOffsetType")) != "0");
 
-      QString speed_limit_engage_condition_text = pcm_cruise_op_long ? "This platform defaults to <b>Auto</b> mode. <b>User Confirm</b> mode is not supported on this platform.<br><br>" : "";
+      QString speed_limit_engage_condition_text = pcm_cruise_op_long ? tr("This platform defaults to <b>Auto</b> mode. <b>User Confirm</b> mode is not supported on this platform.<br><br>") : "";
       QString speed_limit_engage_condition_param = pcm_cruise_op_long ? "0" : "SpeedLimitEngageType";
       if (pcm_cruise_op_long) {
         speed_limit_engage_settings->setDisabledSelectedButton("1");  // "User Confirm" disabled

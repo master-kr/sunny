@@ -243,7 +243,8 @@ SunnypilotPanel::SunnypilotPanel(QWidget *parent) : QFrame(parent) {
 
   std::vector<QString> dlp_settings_texts{tr("Laneful"), tr("Laneless"), tr("Auto")};
   dlp_settings = new ButtonParamControl(
-    "DynamicLaneProfile", "Dynamic Lane Profile", "Default is Laneless. In Auto mode, sunnnypilot dynamically chooses between Laneline or Laneless model based on lane recognition confidence level on road and certain conditions.",
+    "DynamicLaneProfile", tr("Dynamic Lane Profile"),
+    tr("Choose how the driving path is calculated. Laneful emphasizes detected lane lines, Laneless follows the model path, and Auto switches between them according to lane recognition confidence and road conditions. Laneless is the default."),
     "../assets/offroad/icon_blank.png",
     dlp_settings_texts,
     340
@@ -366,8 +367,8 @@ SunnypilotPanel::SunnypilotPanel(QWidget *parent) : QFrame(parent) {
     friction->setEnabled(params.getBool("IsOffroad") || state);
     lat_accel_factor->setEnabled(params.getBool("IsOffroad") || state);
 
-    friction->setTitle(state ? "FRICTION - Live && Offline" : "FRICTION - Offline Only");
-    lat_accel_factor->setTitle(state ? "LAT_ACCEL_FACTOR - Live && Offline" : "LAT_ACCEL_FACTOR - Offline Only");
+    friction->setTitle(state ? tr("FRICTION - Live & Offline") : tr("FRICTION - Offline Only"));
+    lat_accel_factor->setTitle(state ? tr("LAT_ACCEL_FACTOR - Live & Offline") : tr("LAT_ACCEL_FACTOR - Offline Only"));
 
     friction->refresh();
     lat_accel_factor->refresh();
@@ -476,11 +477,11 @@ void SunnypilotPanel::updateToggles() {
       } else if (nnff_toggle->isToggled()) {
         if (CP.getLateralTuning().which() == cereal::CarParams::LateralTuning::TORQUE) {
           QString nn_model_name = QString::fromStdString(CP.getLateralTuning().getTorque().getNnModelName());
-          QString nn_fuzzy = QString::fromUtf8(CP.getLateralTuning().getTorque().getNnModelFuzzyMatch() ? "Fuzzy" : "Exact");
+          QString nn_fuzzy = CP.getLateralTuning().getTorque().getNnModelFuzzyMatch() ? tr("Fuzzy") : tr("Exact");
 
           nnff_toggle->setDescription(nnffDescriptionBuilder((nn_model_name == "")     ? nnff_status_init :
-                                                             (nn_model_name == "mock") ? (nnff_not_loaded + "<br>Reach out to the sunnypilot team in the <font color='white'>#tuning-nnlc channel at the sunnypilot Discord server</font> and donate logs to get NNLC loaded for your car.") :
-                                                                                         (nnff_loaded + " | Match = " + nn_fuzzy + " | " + _car_model + "<br><br>" + nnff_fuzzy_desc)));
+                                                             (nn_model_name == "mock") ? (nnff_not_loaded + tr("<br>Contact the sunnypilot team in the <font color='white'>#tuning-nnlc channel on the sunnypilot Discord server</font> and provide driving logs to add NNLC support for your car.")) :
+                                                                                         (nnff_loaded + tr(" | Match = ") + nn_fuzzy + " | " + _car_model + "<br><br>" + nnff_fuzzy_desc)));
           enforce_torque_lateral->setEnabled(false);
         } else {
           nnff_toggle->setDescription(nnffDescriptionBuilder(nnff_status_init));

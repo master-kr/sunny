@@ -36,7 +36,7 @@ VisualsPanel::VisualsPanel(QWidget *parent) : ListWidget(parent) {
     {
       "HideVEgoUi",
       tr("Speedometer: Hide from Onroad Screen"),
-      "",
+      tr("Hides the large current-speed display from the driving screen. Speed information in other UI areas is not affected."),
       "../assets/offroad/icon_blank.png",
     },
     {
@@ -62,7 +62,7 @@ VisualsPanel::VisualsPanel(QWidget *parent) : ListWidget(parent) {
   // Visuals: Developer UI Info (Dev UI)
   std::vector<QString> dev_ui_settings_texts{tr("Off"), tr("5 Metrics"), tr("10 Metrics")};
   dev_ui_settings = new ButtonParamControl(
-    "DevUIInfo", "Developer UI", "Display real-time parameters and metrics from various sources.",
+    "DevUIInfo", tr("Developer UI"), tr("Displays either 5 or 10 real-time diagnostic metrics on the driving screen. Select Off to hide them."),
     "../assets/offroad/icon_blank.png",
     dev_ui_settings_texts,
     380
@@ -72,7 +72,7 @@ VisualsPanel::VisualsPanel(QWidget *parent) : ListWidget(parent) {
   // Visuals: Display Metrics above Chevron
   std::vector<QString> chevron_info_settings_texts{tr("Off"), tr("Distance"), tr("Speed")};
   chevron_info_settings = new ButtonParamControl(
-    "ChevronInfo", "Metrics above Chevron", "Display useful metrics above the chevron that tracks the lead car (only applicable to cars with openpilot longitudinal control).",
+    "ChevronInfo", tr("Metrics above Chevron"), tr("Displays distance or relative speed above the lead-vehicle chevron. This is available only when openpilot controls acceleration and braking."),
     "../assets/offroad/icon_blank.png",
     chevron_info_settings_texts,
     320
@@ -96,7 +96,8 @@ VisualsPanel::VisualsPanel(QWidget *parent) : ListWidget(parent) {
 
   std::vector<QString> sidebar_temp_texts{tr("Off"), tr("Ambient"), tr("RAM"), tr("CPU"), tr("GPU"), tr("Max")};
   sidebar_temp_setting = new ButtonParamControl(
-    "SidebarTemperatureOptions", "Display Temperature on Sidebar", "",
+    "SidebarTemperatureOptions", tr("Display Temperature on Sidebar"),
+    tr("Selects which temperature appears in the driving-screen sidebar: ambient, memory, CPU, GPU, or the highest measured value. Select Off to hide it."),
     "../assets/offroad/icon_blank.png",
     sidebar_temp_texts,
     255

@@ -317,7 +317,9 @@ DevicePanel::DevicePanel(SettingsWindow *parent) : ListWidget(parent) {
   connect(dcamBtn, &ButtonControl::clicked, [=]() { emit showDriverView(); });
   addItem(dcamBtn);
 
-  auto resetCalibBtn = new ButtonControl(tr("Reset Calibration"), tr("RESET"), "");
+  auto resetCalibBtn = new ButtonControl(
+    tr("Reset Calibration"), tr("RESET"),
+    tr("Deletes the camera calibration and learned steering torque values, then reboots the device. Use this after moving the device or when the driving path is consistently misaligned. Resetting is blocked while sunnypilot is engaged."));
   connect(resetCalibBtn, &ButtonControl::showDescriptionEvent, this, &DevicePanel::updateCalibDescription);
   connect(resetCalibBtn, &ButtonControl::clicked, [&]() {
     if (uiState()->engaged()) {
@@ -330,7 +332,9 @@ DevicePanel::DevicePanel(SettingsWindow *parent) : ListWidget(parent) {
   });
   addItem(resetCalibBtn);
 
-  auto resetMapboxTokenBtn = new ButtonControl(tr("Reset Mapbox Access Token"), tr("RESET"), "");
+  auto resetMapboxTokenBtn = new ButtonControl(
+    tr("Reset Mapbox Access Token"), tr("RESET"),
+    tr("Deletes the saved Mapbox access token. Mapbox maps will not work until a valid token is entered again."));
   connect(resetMapboxTokenBtn, &ButtonControl::clicked, [=]() {
     if (ConfirmationDialog::confirm(tr("Are you sure you want to reset the Mapbox access token?"), tr("Reset"), this)) {
       params.remove("CustomMapboxTokenPk");
@@ -339,7 +343,9 @@ DevicePanel::DevicePanel(SettingsWindow *parent) : ListWidget(parent) {
   });
   addItem(resetMapboxTokenBtn);
 
-  auto resetParamsBtn = new ButtonControl(tr("Reset sunnypilot Settings"), tr("RESET"), "");
+  auto resetParamsBtn = new ButtonControl(
+    tr("Reset sunnypilot Settings"), tr("RESET"),
+    tr("Restores sunnypilot feature settings to their defaults and reboots the device. Vehicle selection and calibration may need to be configured again."));
   connect(resetParamsBtn, &ButtonControl::clicked, [=]() {
     if (ConfirmationDialog::confirm(tr("Are you sure you want to reset all sunnypilot settings?"), tr("Reset"), this)) {
       std::system("sudo rm -rf /data/params/d/*");
@@ -359,7 +365,9 @@ DevicePanel::DevicePanel(SettingsWindow *parent) : ListWidget(parent) {
   }
 
   if (Hardware::TICI()) {
-    auto regulatoryBtn = new ButtonControl(tr("Regulatory"), tr("VIEW"), "");
+    auto regulatoryBtn = new ButtonControl(
+      tr("Regulatory"), tr("VIEW"),
+      tr("Displays regulatory and certification information for this device."));
     connect(regulatoryBtn, &ButtonControl::clicked, [=]() {
       const std::string txt = util::read_file("../assets/offroad/fcc.html");
       ConfirmationDialog::rich(QString::fromStdString(txt), this);
@@ -367,7 +375,9 @@ DevicePanel::DevicePanel(SettingsWindow *parent) : ListWidget(parent) {
     addItem(regulatoryBtn);
   }
 
-  auto translateBtn = new ButtonControl(tr("Change Language"), tr("CHANGE"), "");
+  auto translateBtn = new ButtonControl(
+    tr("Change Language"), tr("CHANGE"),
+    tr("Changes the language used by the device interface. The interface restarts after a language is selected."));
   connect(translateBtn, &ButtonControl::clicked, [=]() {
     QMap<QString, QString> langs = getSupportedLanguages();
     QString selection = MultiOptionDialog::getSelection(tr("Select a language"), langs.keys(), langs.key(uiState()->language), this);
@@ -429,12 +439,12 @@ void DevicePanel::refreshPin() {
   QFile require("/data/params/d/FleetManagerPin");
   if (!require.exists()) {
     setSpacing(50);
-    fleetManagerPin->setTitle(QString(pin_title) + "OFF");
+    fleetManagerPin->setTitle(tr(pin_title) + tr("OFF"));
   } else if (f.open(QIODevice::ReadOnly | QIODevice::Text)) {
     pin = f.readAll();
     f.close();
     setSpacing(50);
-    fleetManagerPin->setTitle(QString(pin_title) + pin);
+    fleetManagerPin->setTitle(tr(pin_title) + pin);
   }
 }
 

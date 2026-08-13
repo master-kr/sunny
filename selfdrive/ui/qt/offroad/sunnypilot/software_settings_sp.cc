@@ -3,7 +3,9 @@
 SoftwarePanelSP::SoftwarePanelSP(QWidget* parent) : SoftwarePanel(parent) {
   // Get current model name and create new ButtonControl
   const auto current_model = GetModelName();
-  currentModelLblBtn = new ButtonControl(tr("Driving Model"), tr("SELECT"), current_model);
+  currentModelLblBtn = new ButtonControl(
+    tr("Driving Model"), tr("SELECT"),
+    tr("Shows the active driving model. Select another model to download it; calibration reset is recommended after changing models."));
   currentModelLblBtn->setValue(current_model);
 
   // Connect downloadProgress from models_fetcher to local slot
@@ -32,7 +34,7 @@ QString SoftwarePanelSP::GetModelName() {
 
 void SoftwarePanelSP::HandleModelDownloadProgressReport() {
   const auto _progress_str = QString::number(modelDownloadProgress, 'f', 2);
-  const auto description = isDownloadingModel() ? QString("Downloading [%1]... (%2%)") : QString("%1 downloaded");
+  const auto description = isDownloadingModel() ? tr("Downloading [%1]... (%2%)") : tr("%1 downloaded");
 
   // Update UI with new description
   currentModelLblBtn->setDescription(description.arg(GetModelName(), _progress_str));
@@ -52,7 +54,7 @@ void SoftwarePanelSP::HandleModelDownloadProgressReport() {
 void SoftwarePanelSP::handleCurrentModelLblBtnClicked() {
   // Disabling label button and displaying fetching message
   currentModelLblBtn->setEnabled(false);
-  currentModelLblBtn->setValue("Fetching models...");
+  currentModelLblBtn->setValue(tr("Fetching models..."));
 
   checkNetwork();
   const auto currentModelName = QString::fromStdString(params.get("DrivingModelName"));

@@ -15,7 +15,7 @@ SpeedLimitPolicySettings::SpeedLimitPolicySettings(QWidget* parent) : QWidget(pa
   speed_limit_policy = new ButtonParamControl(
     "SpeedLimitControlPolicy",
     tr("Speed Limit Source Policy"),
-    "",
+    tr("Chooses which source provides the speed limit and the priority used when multiple sources are available. The currently selected policy is highlighted in the explanation."),
     "../assets/offroad/icon_blank.png",
     speed_limit_policy_texts,
     250
