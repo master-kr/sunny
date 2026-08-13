@@ -46,21 +46,21 @@ class TestIoniq5CanfdDetection(unittest.TestCase):
   def test_selected_hda2_uses_hda2_layout_without_initial_camera_frames(self):
     fingerprint = gen_empty_fingerprint()
     fingerprint[4][0x123] = 8
-    CP = self.get_params(fingerprint, "Hyundai Ioniq 5 (with HDA II) 2022-23")
+    CP = self.get_params(fingerprint, "현대 아이오닉 5 (HDA2) 2022-23")
     self.assertTrue(CP.flags & HyundaiFlags.CANFD_HDA2)
     self.assertEqual(len(CP.safetyConfigs), 2)
 
   def test_selected_southeast_asia_uses_hda2_harness_layout(self):
     fingerprint = gen_empty_fingerprint()
     fingerprint[4][0x123] = 8
-    CP = self.get_params(fingerprint, "Hyundai Ioniq 5 (Southeast Asia only) 2022-23")
+    CP = self.get_params(fingerprint, "현대 아이오닉 5 (HDA2 대체 조향) 2022-23")
     self.assertTrue(CP.flags & HyundaiFlags.CANFD_HDA2)
     self.assertEqual(len(CP.safetyConfigs), 2)
 
   def test_selected_hda1_overrides_ambiguous_hda2_frame(self):
     fingerprint = gen_empty_fingerprint()
     fingerprint[6][0x50] = 16
-    CP = self.get_params(fingerprint, "Hyundai Ioniq 5 (without HDA II) 2022-23")
+    CP = self.get_params(fingerprint, "현대 아이오닉 5 (HDA1) 2022-23")
     self.assertFalse(CP.flags & HyundaiFlags.CANFD_HDA2)
     self.assertEqual(len(CP.safetyConfigs), 2)
 

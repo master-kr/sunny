@@ -27,9 +27,10 @@ class CarInterface(CarInterfaceBase):
     """Return the manually selected Ioniq 5 CAN-FD layout, if specified."""
     if candidate != CAR.IONIQ_5:
       return None
-    if "(without HDA II)" in selected_car:
+    if "(without HDA II)" in selected_car or "(HDA1)" in selected_car:
       return False
-    if "(with HDA II)" in selected_car or "(Southeast Asia only)" in selected_car:
+    if ("(with HDA II)" in selected_car or "(Southeast Asia only)" in selected_car or
+        "(HDA2)" in selected_car or "(HDA2 대체 조향)" in selected_car):
       return True
     return None
 

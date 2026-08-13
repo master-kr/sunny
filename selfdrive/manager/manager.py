@@ -122,6 +122,18 @@ def manager_init() -> None:
     if params.get(k) is None:
       params.put(k, v)
 
+  # Keep the three manually selectable Ioniq 5 layouts understandable on the
+  # Korean C3 build. Migrate an existing English selection as well, since the
+  # prebuilt UI displays CarModelText verbatim.
+  ioniq5_display_names = {
+    "Hyundai Ioniq 5 (Southeast Asia only) 2022-23": "현대 아이오닉 5 (HDA2 대체 조향) 2022-23",
+    "Hyundai Ioniq 5 (with HDA II) 2022-23": "현대 아이오닉 5 (HDA2) 2022-23",
+    "Hyundai Ioniq 5 (without HDA II) 2022-23": "현대 아이오닉 5 (HDA1) 2022-23",
+  }
+  selected_car_text = params.get("CarModelText", encoding="utf8") or ""
+  if selected_car_text in ioniq5_display_names:
+    params.put("CarModelText", ioniq5_display_names[selected_car_text])
+
   # The release-c3-BDv2 build supports South Korea offline maps only. Set the
   # selection before the prebuilt UI starts so map downloads do not depend on
   # fetching the remote country list.
@@ -185,8 +197,12 @@ def manager_init() -> None:
                        dirty=is_dirty(),
                        device=HARDWARE.get_device_type())
 
-  if os.path.isfile(os.path.join(sentry.CRASHES_DIR, 'error.txt')):
-    os.remove(os.path.join(sentry.CRASHES_DIR, 'error.txt'))
+  error_path = os.path.join(sentry.CRASHES_DIR, 'error.txt')
+  if os.path.isfile(error_path):
+    with open(error_path, encoding="utf-8", errors="replace") as error_file:
+      source_ui_build_failed = error_file.readline().strip() == "[SOURCE UI BUILD FAILED]"
+    if not source_ui_build_failed:
+      os.remove(error_path)
 
 
 def manager_prepare() -> None:
