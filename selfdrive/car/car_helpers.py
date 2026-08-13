@@ -21,12 +21,12 @@ FRAME_FINGERPRINT = 100  # 1s
 
 EventName = car.CarEvent.EventName
 
-BDV2_RELEASE_BRANCH = "release-c3-BDv2"
+BDV2_RELEASE_BRANCHES = ("release-c3-BDv2", "release-c3-BDv2-source")
 BDV2_RELEASE_ORIGIN = "github.com/master-kr/openpilot"
 
 
 def is_bdv2_release() -> bool:
-  return get_short_branch() == BDV2_RELEASE_BRANCH and get_normalized_origin() == BDV2_RELEASE_ORIGIN
+  return get_short_branch() in BDV2_RELEASE_BRANCHES and get_normalized_origin() == BDV2_RELEASE_ORIGIN
 
 
 def get_startup_event(car_recognized, controller_available, fw_seen):

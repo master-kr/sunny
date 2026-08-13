@@ -252,6 +252,14 @@ Please use caution when using this feature. Only use the blinker when traffic an
         <translation>캘리브레이션을 초기화하시겠습니까?</translation>
     </message>
     <message>
+        <source>Disengage openpilot before resetting calibration.</source>
+        <translation>캘리브레이션을 초기화하려면 먼저 오픈파일럿 제어를 해제하세요.</translation>
+    </message>
+    <message>
+        <source>Reset calibration and reboot the device?</source>
+        <translation>캘리브레이션을 초기화하고 기기를 재부팅하시겠습니까?</translation>
+    </message>
+    <message>
         <source>Review Training Guide</source>
         <translation>트레이닝 가이드 다시보기</translation>
     </message>
@@ -1439,6 +1447,10 @@ This may take up to a minute.</source>
     <message>
         <source>Driving Model</source>
         <translation>주행 모델</translation>
+    </message>
+    <message>
+        <source>Blue Diamond v2 (December 12, 2023)</source>
+        <translation>Blue Diamond v2 (2023년 12월 12일)</translation>
     </message>
 </context>
 <context>

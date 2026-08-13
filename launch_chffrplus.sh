@@ -31,6 +31,33 @@ function agnos_init {
   fi
 }
 
+function build_source_ui {
+  local ui_commit
+  local ui_stamp="/data/ui_build_commit"
+  local ui_log="/data/community/crashes/ui_source_build.txt"
+  local ui_binary="$BASEDIR/selfdrive/ui/_ui"
+  local ui_backup="/tmp/openpilot_ui_prebuilt_backup"
+
+  ui_commit="$(git -C "$BASEDIR" rev-parse HEAD 2>/dev/null)"
+  [ -n "$ui_commit" ] || return 0
+  [ "$(cat "$ui_stamp" 2>/dev/null)" = "$ui_commit" ] && return 0
+
+  echo "Building source UI for $ui_commit"
+  mkdir -p "$(dirname "$ui_log")"
+  cp -f "$ui_binary" "$ui_backup"
+  rm -f "$ui_binary"
+
+  if cd "$BASEDIR" && scons -j2 --minimal selfdrive/ui/_ui >"$ui_log" 2>&1; then
+    echo "$ui_commit" > "$ui_stamp"
+    rm -f "$ui_backup"
+    echo "Source UI build completed"
+  else
+    echo "Source UI build failed; restoring prebuilt UI"
+    cp -f "$ui_backup" "$ui_binary"
+    rm -f "$ui_backup"
+  fi
+}
+
 function launch {
   # Remove orphaned git lock if it exists on boot
   [ -f "$DIR/.git/index.lock" ] && rm -f $DIR/.git/index.lock
@@ -78,6 +105,10 @@ function launch {
 
   # hardware specific init
   agnos_init
+
+  # This release keeps the proven prebuilt driving stack and model, while the
+  # restored UI source is rebuilt once per Git revision.
+  build_source_ui
 
   # write tmux scrollback to a file
   tmux capture-pane -pq -S-1000 > /tmp/launch_log
