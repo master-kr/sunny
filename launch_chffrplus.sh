@@ -35,6 +35,7 @@ function build_source_ui {
   local ui_commit
   local ui_stamp="/data/ui_build_commit"
   local ui_log="/data/community/crashes/ui_source_build.txt"
+  local error_log="/data/community/crashes/error.txt"
   local ui_binary="$BASEDIR/selfdrive/ui/_ui"
   local ui_backup="/tmp/openpilot_ui_prebuilt_backup"
 
@@ -55,9 +56,19 @@ function build_source_ui {
   if cd "$BASEDIR" && scons -j2 --minimal selfdrive/ui/_ui >"$ui_log" 2>&1; then
     echo "$ui_commit" > "$ui_stamp"
     rm -f "$ui_backup"
+    if grep -q '^\[SOURCE UI BUILD FAILED\]' "$error_log" 2>/dev/null; then
+      rm -f "$error_log"
+    fi
     echo "Source UI build completed"
   else
     echo "Source UI build failed; restoring prebuilt UI"
+    {
+      echo "[SOURCE UI BUILD FAILED]"
+      echo "Commit: $ui_commit"
+      echo "The previous prebuilt UI was restored. Build log tail:"
+      echo
+      tail -n 120 "$ui_log"
+    } > "$error_log"
     cp -f "$ui_backup" "$ui_binary"
     rm -f "$ui_backup"
   fi
