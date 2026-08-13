@@ -226,9 +226,9 @@ CAR_INFO: Dict[str, Optional[Union[HyundaiCarInfo, List[HyundaiCarInfo]]]] = {
   CAR.VELOSTER: HyundaiCarInfo("Hyundai Veloster 2019-20", min_enable_speed=5. * CV.MPH_TO_MS, car_parts=CarParts.common([CarHarness.hyundai_e])),
   CAR.SONATA_HYBRID: HyundaiCarInfo("Hyundai Sonata Hybrid 2020-23", "All", car_parts=CarParts.common([CarHarness.hyundai_a])),
   CAR.IONIQ_5: [
-    HyundaiCarInfo("현대 아이오닉 5 (HDA2 대체 조향) 2022-23", "All", car_parts=CarParts.common([CarHarness.hyundai_q])),
-    HyundaiCarInfo("현대 아이오닉 5 (HDA1) 2022-23", "Highway Driving Assist", car_parts=CarParts.common([CarHarness.hyundai_k])),
-    HyundaiCarInfo("현대 아이오닉 5 (HDA2) 2022-23", "Highway Driving Assist II", car_parts=CarParts.common([CarHarness.hyundai_q])),
+    HyundaiCarInfo("Hyundai Ioniq 5 (HDA II - Carrot CAN) 2022-23", "All", car_parts=CarParts.common([CarHarness.hyundai_q])),
+    HyundaiCarInfo("Hyundai Ioniq 5 (HDA I) 2022-23", "Highway Driving Assist", car_parts=CarParts.common([CarHarness.hyundai_k])),
+    HyundaiCarInfo("Hyundai Ioniq 5 (HDA II - Native CAN) 2022-23", "Highway Driving Assist II", car_parts=CarParts.common([CarHarness.hyundai_q])),
   ],
   CAR.IONIQ_6: [
     HyundaiCarInfo("Hyundai Ioniq 6 (with HDA II) 2023", "Highway Driving Assist II", car_parts=CarParts.common([CarHarness.hyundai_p])),
