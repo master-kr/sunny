@@ -125,12 +125,12 @@ def manager_init() -> None:
   # Keep the Ioniq 5 entries together in the alphabetically sorted vehicle list
   # and migrate labels used by earlier revisions of this branch.
   ioniq5_display_names = {
-    "Hyundai Ioniq 5 (Southeast Asia only) 2022-23": "Hyundai Ioniq 5 (HDA II - Carrot CAN) 2022-23",
-    "Hyundai Ioniq 5 (with HDA II) 2022-23": "Hyundai Ioniq 5 (HDA II - Native CAN) 2022-23",
-    "Hyundai Ioniq 5 (without HDA II) 2022-23": "Hyundai Ioniq 5 (HDA I) 2022-23",
-    "현대 아이오닉 5 (HDA2 대체 조향) 2022-23": "Hyundai Ioniq 5 (HDA II - Carrot CAN) 2022-23",
-    "현대 아이오닉 5 (HDA2) 2022-23": "Hyundai Ioniq 5 (HDA II - Native CAN) 2022-23",
-    "현대 아이오닉 5 (HDA1) 2022-23": "Hyundai Ioniq 5 (HDA I) 2022-23",
+    "Hyundai Ioniq 5 (HDA II - Carrot CAN) 2022-23": "Hyundai Ioniq 5 (Southeast Asia only) 2022-23",
+    "Hyundai Ioniq 5 (HDA II - Native CAN) 2022-23": "Hyundai Ioniq 5 (with HDA II) 2022-23",
+    "Hyundai Ioniq 5 (HDA I) 2022-23": "Hyundai Ioniq 5 (without HDA II) 2022-23",
+    "현대 아이오닉 5 (HDA2 대체 조향) 2022-23": "Hyundai Ioniq 5 (Southeast Asia only) 2022-23",
+    "현대 아이오닉 5 (HDA2) 2022-23": "Hyundai Ioniq 5 (with HDA II) 2022-23",
+    "현대 아이오닉 5 (HDA1) 2022-23": "Hyundai Ioniq 5 (without HDA II) 2022-23",
   }
   selected_car_text = params.get("CarModelText", encoding="utf8") or ""
   if selected_car_text in ioniq5_display_names:

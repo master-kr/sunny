@@ -65,6 +65,12 @@ AddOption('--minimal',
           default=os.path.islink(Dir('#laika/').abspath),
           help='the minimum build to run openpilot. no tests, tools, etc.')
 
+AddOption('--source-ui-only',
+          action='store_true',
+          dest='source_ui_only',
+          default=False,
+          help='only load build scripts required for the source Qt UI')
+
 ## Architecture name breakdown (arch)
 ## - larch64: linux tici aarch64
 ## - aarch64: linux pc aarch64
@@ -361,12 +367,15 @@ messaging_python = [File('#cereal/messaging/messaging_pyx.so')]
 
 Export('cereal', 'messaging', 'messaging_python', 'visionipc')
 
-# Build other submodules
-SConscript([
-  'body/board/SConscript',
-  'opendbc/can/SConscript',
-  'panda/SConscript',
-])
+# Build other submodules. The legacy release intentionally contains prebuilt
+# Panda/board artifacts, so its source-only UI build must not load those
+# unrelated firmware build scripts.
+if not GetOption('source_ui_only'):
+  SConscript([
+    'body/board/SConscript',
+    'opendbc/can/SConscript',
+    'panda/SConscript',
+  ])
 
 # Build rednose library and ekf models
 rednose_deps = [
@@ -393,30 +402,33 @@ if arch != "larch64":
   })
 
 Export('rednose_config')
-SConscript(['rednose/SConscript'])
+if not GetOption('source_ui_only'):
+  SConscript(['rednose/SConscript'])
 
 # Build system services
-SConscript([
-  'system/proclogd/SConscript',
-  'system/ubloxd/SConscript',
-  'system/loggerd/SConscript',
-])
-if arch != "Darwin":
+if not GetOption('source_ui_only'):
   SConscript([
-    'system/camerad/SConscript',
-    'system/sensord/SConscript',
-    'system/logcatd/SConscript',
+    'system/proclogd/SConscript',
+    'system/ubloxd/SConscript',
+    'system/loggerd/SConscript',
   ])
+  if arch != "Darwin":
+    SConscript([
+      'system/camerad/SConscript',
+      'system/sensord/SConscript',
+      'system/logcatd/SConscript',
+    ])
 
 # Build openpilot
 SConscript(['third_party/SConscript'])
 
-SConscript(['selfdrive/boardd/SConscript'])
-SConscript(['selfdrive/controls/lib/lateral_mpc_lib/SConscript'])
-SConscript(['selfdrive/controls/lib/longitudinal_mpc_lib/SConscript'])
-SConscript(['selfdrive/locationd/SConscript'])
-SConscript(['selfdrive/navd/SConscript'])
-SConscript(['selfdrive/modeld/SConscript'])
+if not GetOption('source_ui_only'):
+  SConscript(['selfdrive/boardd/SConscript'])
+  SConscript(['selfdrive/controls/lib/lateral_mpc_lib/SConscript'])
+  SConscript(['selfdrive/controls/lib/longitudinal_mpc_lib/SConscript'])
+  SConscript(['selfdrive/locationd/SConscript'])
+  SConscript(['selfdrive/navd/SConscript'])
+  SConscript(['selfdrive/modeld/SConscript'])
 SConscript(['selfdrive/ui/SConscript'])
 
 if arch in ['x86_64', 'aarch64', 'Darwin'] and Dir('#tools/cabana/').exists() and GetOption('extras'):

@@ -53,7 +53,7 @@ function build_source_ui {
         "$BASEDIR/selfdrive/assets/assets.o" \
         "$BASEDIR/selfdrive/ui/assets.o"
 
-  if cd "$BASEDIR" && scons -j2 --minimal selfdrive/ui/_ui >"$ui_log" 2>&1; then
+  if cd "$BASEDIR" && scons -j2 --minimal --source-ui-only selfdrive/ui/_ui >"$ui_log" 2>&1; then
     echo "$ui_commit" > "$ui_stamp"
     rm -f "$ui_backup"
     if grep -q '^\[SOURCE UI BUILD FAILED\]' "$error_log" 2>/dev/null; then
