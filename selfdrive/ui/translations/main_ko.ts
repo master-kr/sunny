@@ -1045,10 +1045,25 @@ This may take up to a minute.</source>
     </message>
 </context>
 <context>
+    <name>VehiclePanel</name>
+    <message>
+        <source>Select your car</source>
+        <translation>차량 선택</translation>
+    </message>
+</context>
+<context>
     <name>SPVehiclesTogglesPanel</name>
     <message>
         <source>Hyundai/Kia/Genesis</source>
         <translation>현대/기아/제네시스</translation>
+    </message>
+    <message>
+        <source>HKG CAN: Smoother Stopping Performance (Beta)</source>
+        <translation>현대·기아·제네시스 CAN: 부드러운 정차(베타)</translation>
+    </message>
+    <message>
+        <source>Smoother stopping behind a stopped car or desired stopping event. This is only applicable to HKG CAN platforms using openpilot longitudinal control.</source>
+        <translation>정차한 앞차나 정지 지점 뒤에서 더 부드럽게 멈춥니다. openpilot 가감속 제어를 사용하는 현대·기아·제네시스 CAN 차량에만 적용됩니다.</translation>
     </message>
     <message>
         <source>Subaru</source>
@@ -1067,6 +1082,14 @@ This may take up to a minute.</source>
         <translation>토요타/렉서스</translation>
     </message>
     <message>
+        <source>Enable Stock Toyota Longitudinal Control</source>
+        <translation>토요타 순정 가감속 제어 사용</translation>
+    </message>
+    <message>
+        <source>sunnypilot will &lt;b&gt;not&lt;/b&gt; take over control of gas and brakes. Stock Toyota longitudinal control will be used.</source>
+        <translation>sunnypilot이 가속과 제동을 직접 제어하지 않고 토요타 순정 ACC의 가감속 제어를 사용합니다.</translation>
+    </message>
+    <message>
         <source>Allow M.A.D.S. toggling w/ LKAS Button (Beta)</source>
         <translation>LKAS 버튼으로 M.A.D.S. 전환 허용(베타)</translation>
     </message>
@@ -1077,6 +1100,22 @@ This may take up to a minute.</source>
     <message>
         <source>Note: Enabling this toggle may have unexpected behavior with steering control. It is the driver&apos;s responsibility to observe their environment and make decisions accordingly.</source>
         <translation>주의: 이 기능을 켜면 조향 제어가 예상과 다르게 작동할 수 있습니다. 운전자는 항상 주변을 확인하고 직접 안전을 판단해야 합니다.</translation>
+    </message>
+    <message>
+        <source>TSS2 Longitudinal: Custom Tuning</source>
+        <translation>TSS2 가감속 제어 맞춤 조정</translation>
+    </message>
+    <message>
+        <source>Smoother longitudinal performance for Toyota/Lexus TSS2/LSS2 cars. Big thanks to dragonpilot-community for this implementation.</source>
+        <translation>토요타·렉서스 TSS2/LSS2 차량의 가속과 제동을 더 부드럽게 조정합니다. 이 기능을 구현한 dragonpilot-community에 감사드립니다.</translation>
+    </message>
+    <message>
+        <source>Enable Stop and Go Hack</source>
+        <translation>정차 후 자동 재출발 보조 사용</translation>
+    </message>
+    <message>
+        <source>sunnypilot will allow some Toyota/Lexus cars to auto resume during stop and go traffic. This feature is only applicable to certain models. Use at your own risk.</source>
+        <translation>일부 토요타·렉서스 차량이 정체 구간에서 정차 후 자동으로 다시 출발하도록 합니다. 지원되는 일부 차종에서만 사용하고, 작동 상태를 항상 직접 확인하십시오.</translation>
     </message>
     <message>
         <source>Volkswagen</source>

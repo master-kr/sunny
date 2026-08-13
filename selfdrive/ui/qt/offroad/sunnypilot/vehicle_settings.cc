@@ -7,13 +7,13 @@ VehiclePanel::VehiclePanel(QWidget *parent) : QWidget(parent) {
   fcr_layout->setContentsMargins(0, 20, 0, 20);
 
   QString set = QString::fromStdString(params.get("CarModelText"));
-  QPushButton* setCarBtn = new QPushButton(((set == "=== Not Selected ===") || (set.length() == 0)) ? "Select your car" : set);
+  QPushButton* setCarBtn = new QPushButton(((set == "=== Not Selected ===") || (set.length() == 0)) ? tr("Select your car") : set);
   setCarBtn->setObjectName("setCarBtn");
   setCarBtn->setStyleSheet("margin-right: 30px;");
   connect(setCarBtn, &QPushButton::clicked, [=]() {
     QMap<QString, QString> cars = getCarNames();
     QString currentCar = QString::fromStdString(params.get("CarModel"));
-    QString selection = MultiOptionDialog::getSelection("Select your car", cars.keys(), cars.key(currentCar), this);
+    QString selection = MultiOptionDialog::getSelection(tr("Select your car"), cars.keys(), cars.key(currentCar), this);
     if (!selection.isEmpty()) {
       params.put("CarModel", cars[selection].toStdString());
       params.put("CarModelText", selection.toStdString());
@@ -61,8 +61,8 @@ SPVehiclesTogglesPanel::SPVehiclesTogglesPanel(VehiclePanel *parent) : ListWidge
   addItem(new LabelControl(tr("Hyundai/Kia/Genesis")));
   auto hkgSmoothStop = new ParamControl(
     "HkgSmoothStop",
-    "HKG CAN: Smoother Stopping Performance (Beta)",
-    "Smoother stopping behind a stopped car or desired stopping event. This is only applicable to HKG CAN platforms using openpilot longitudinal control.",
+    tr("HKG CAN: Smoother Stopping Performance (Beta)"),
+    tr("Smoother stopping behind a stopped car or desired stopping event. This is only applicable to HKG CAN platforms using openpilot longitudinal control."),
     "../assets/offroad/icon_blank.png"
   );
   hkgSmoothStop->setConfirmation(true, false);
@@ -83,8 +83,8 @@ SPVehiclesTogglesPanel::SPVehiclesTogglesPanel(VehiclePanel *parent) : ListWidge
   addItem(new LabelControl(tr("Toyota/Lexus")));
   stockLongToyota = new ParamControl(
     "StockLongToyota",
-    "Enable Stock Toyota Longitudinal Control",
-    "sunnypilot will <b>not</b> take over control of gas and brakes. Stock Toyota longitudinal control will be used.",
+    tr("Enable Stock Toyota Longitudinal Control"),
+    tr("sunnypilot will <b>not</b> take over control of gas and brakes. Stock Toyota longitudinal control will be used."),
     "../assets/offroad/icon_blank.png"
   );
   stockLongToyota->setConfirmation(true, false);
@@ -104,8 +104,8 @@ SPVehiclesTogglesPanel::SPVehiclesTogglesPanel(VehiclePanel *parent) : ListWidge
 
   auto toyotaTss2LongTune = new ParamControl(
     "ToyotaTSS2Long",
-    "TSS2 Longitudinal: Custom Tuning",
-    "Smoother longitudinal performance for Toyota/Lexus TSS2/LSS2 cars. Big thanks to dragonpilot-community for this implementation.",
+    tr("TSS2 Longitudinal: Custom Tuning"),
+    tr("Smoother longitudinal performance for Toyota/Lexus TSS2/LSS2 cars. Big thanks to dragonpilot-community for this implementation."),
     "../assets/offroad/icon_blank.png"
   );
   toyotaTss2LongTune->setConfirmation(true, false);
@@ -113,8 +113,8 @@ SPVehiclesTogglesPanel::SPVehiclesTogglesPanel(VehiclePanel *parent) : ListWidge
 
   auto toyotaSngHack = new ParamControl(
     "ToyotaSnG",
-    "Enable Stop and Go Hack",
-    "sunnypilot will allow some Toyota/Lexus cars to auto resume during stop and go traffic. This feature is only applicable to certain models. Use at your own risk.",
+    tr("Enable Stop and Go Hack"),
+    tr("sunnypilot will allow some Toyota/Lexus cars to auto resume during stop and go traffic. This feature is only applicable to certain models. Use at your own risk."),
     "../assets/offroad/icon_blank.png"
   );
   toyotaSngHack->setConfirmation(true, false);

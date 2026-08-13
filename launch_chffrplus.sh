@@ -45,7 +45,12 @@ function build_source_ui {
   echo "Building source UI for $ui_commit"
   mkdir -p "$(dirname "$ui_log")"
   cp -f "$ui_binary" "$ui_backup"
-  rm -f "$ui_binary"
+  # Translation files are compiled into the generated Qt assets object. Remove
+  # those generated outputs so an update cannot reuse an older embedded .qm.
+  rm -f "$ui_binary" \
+        "$BASEDIR/selfdrive/assets/assets.cc" \
+        "$BASEDIR/selfdrive/assets/assets.o" \
+        "$BASEDIR/selfdrive/ui/assets.o"
 
   if cd "$BASEDIR" && scons -j2 --minimal selfdrive/ui/_ui >"$ui_log" 2>&1; then
     echo "$ui_commit" > "$ui_stamp"
