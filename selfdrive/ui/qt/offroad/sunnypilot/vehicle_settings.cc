@@ -13,7 +13,12 @@ VehiclePanel::VehiclePanel(QWidget *parent) : QWidget(parent) {
   connect(setCarBtn, &QPushButton::clicked, [=]() {
     QMap<QString, QString> cars = getCarNames();
     QString currentCar = QString::fromStdString(params.get("CarModel"));
-    QString selection = MultiOptionDialog::getSelection(tr("Select your car"), cars.keys(), cars.key(currentCar), this);
+    QString currentCarText = QString::fromStdString(params.get("CarModelText"));
+    // Multiple documentation entries can share one internal fingerprint. Use
+    // the saved display name first so the dialog highlights the exact selected
+    // variant instead of the first entry with the same CarModel value.
+    QString currentSelection = cars.contains(currentCarText) ? currentCarText : cars.key(currentCar);
+    QString selection = MultiOptionDialog::getSelection(tr("Select your car"), cars.keys(), currentSelection, this);
     if (!selection.isEmpty()) {
       params.put("CarModel", cars[selection].toStdString());
       params.put("CarModelText", selection.toStdString());
