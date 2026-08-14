@@ -25,8 +25,10 @@ from openpilot.system.swaglog import cloudlog
 
 LON_MPC_STEP = 0.2  # first step is 0.2s
 A_CRUISE_MIN = -1.2
-A_CRUISE_MAX_VALS = [1.6, 1.2, 0.8, 0.6]
-A_CRUISE_MAX_BP = [0., 10.0, 25., 40.]
+# Match Carrot's normal-mode speed-based acceleration profile while retaining
+# this branch's existing longitudinal braking and controller safety limits.
+A_CRUISE_MAX_VALS = [1.6, 2.0, 1.6, 1.3, 1.1, 0.95, 0.8]
+A_CRUISE_MAX_BP = [speed_kph * CV.KPH_TO_MS for speed_kph in (0., 10., 40., 60., 80., 110., 140.)]
 
 # Lookup table for turns
 _A_TOTAL_MAX_V = [1.7, 3.2]
