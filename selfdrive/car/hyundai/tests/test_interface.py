@@ -65,7 +65,7 @@ class TestIoniq5CanfdDetection(unittest.TestCase):
     self.assertFalse(CP.flags & HyundaiFlags.CANFD_HDA2)
     self.assertEqual(len(CP.safetyConfigs), 2)
 
-  def test_ioniq5_carrot_tuning_with_release_safety_limits(self):
+  def test_ioniq5_carrot_tuning_and_safety_limits(self):
     fingerprint = gen_empty_fingerprint()
     fingerprint[2][0x50] = 16
     CP = self.get_params(fingerprint)
@@ -79,12 +79,12 @@ class TestIoniq5CanfdDetection(unittest.TestCase):
     self.assertEqual(controller_params.STEER_DELTA_UP, 2)
     self.assertEqual(controller_params.STEER_DELTA_DOWN, 3)
 
-    # Apply Carrot's Ioniq 5 longitudinal response without widening release caps.
+    # Apply Carrot's Ioniq 5 longitudinal response and command limits.
     self.assertEqual(list(CP.longitudinalTuning.kpV), [1.0])
     self.assertEqual(list(CP.longitudinalTuning.kiV), [0.0])
     self.assertEqual(CP.longitudinalTuning.kf, 1.0)
-    self.assertEqual(CarControllerParams.ACCEL_MIN, -3.5)
-    self.assertEqual(CarControllerParams.ACCEL_MAX, 2.0)
+    self.assertEqual(CarControllerParams.ACCEL_MIN, -4.0)
+    self.assertEqual(CarControllerParams.ACCEL_MAX, 2.5)
 
 
 if __name__ == "__main__":
