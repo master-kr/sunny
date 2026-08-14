@@ -1,5 +1,3 @@
-import copy
-
 from openpilot.common.numpy_fast import clip
 from openpilot.selfdrive.car import CanBusBase
 from openpilot.selfdrive.car.hyundai.values import HyundaiFlags
@@ -62,17 +60,6 @@ def create_steering_messages(packer, CP, CAN, enabled, lat_active, apply_steer ,
     ret.append(packer.make_can_msg("LFA", CAN.ECAN, values))
 
   return ret
-
-
-def create_angle_steering_message(packer, CAN, lfa_alt, lat_active, apply_angle, max_torque, counter):
-  """Replace the stock LFA_ALT command while retaining unknown stock fields."""
-  values = copy.copy(lfa_alt)
-  values.pop("CHECKSUM", None)
-  values["COUNTER"] = counter & 0xff
-  values["LKAS_ANGLE_ACTIVE"] = 2 if lat_active else 1
-  values["LKAS_ANGLE_CMD"] = -apply_angle
-  values["LKAS_ANGLE_MAX_TORQUE"] = max_torque if lat_active else 0
-  return packer.make_can_msg("LFA_ALT", CAN.ECAN, values)
 
 def create_suppress_lfa(packer, CAN, hda2_lfa_block_msg, hda2_alt_steering):
   suppress_msg = "CAM_0x362" if hda2_alt_steering else "CAM_0x2a4"
