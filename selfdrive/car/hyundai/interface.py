@@ -66,6 +66,11 @@ class CarInterface(CarInterfaceBase):
     CAN = CanBus(None, hda2, fingerprint)
 
     if candidate in CANFD_CAR:
+      # CARROT uses Hyundai's stock LFA_ALT angle command when 0x0CB is present.
+      # Keep all other Ioniq 5 CAN layouts on their existing torque path.
+      if candidate == CAR.IONIQ_5 and 0xCB in fingerprint[CAN.CAM]:
+        ret.flags |= HyundaiFlags.ANGLE_CONTROL.value
+
       # detect HDA2 with ADAS Driving ECU
       if hda2:
         ret.flags |= HyundaiFlags.CANFD_HDA2.value
@@ -358,6 +363,8 @@ class CarInterface(CarInterfaceBase):
         ret.safetyConfigs[-1].safetyParam |= Panda.FLAG_HYUNDAI_CANFD_ALT_BUTTONS
       if ret.flags & HyundaiFlags.CANFD_CAMERA_SCC:
         ret.safetyConfigs[-1].safetyParam |= Panda.FLAG_HYUNDAI_CAMERA_SCC
+      if ret.flags & HyundaiFlags.ANGLE_CONTROL:
+        ret.safetyConfigs[-1].safetyParam |= Panda.FLAG_HYUNDAI_CANFD_ANGLE
     else:
       if candidate in LEGACY_SAFETY_MODE_CAR:
         # these cars require a special panda safety mode due to missing counters and checksums in the messages
@@ -390,6 +397,9 @@ class CarInterface(CarInterfaceBase):
       ret.safetyConfigs[-1].safetyParam |= Panda.FLAG_HYUNDAI_ALT_LIMITS
 
     ret.centerToFront = ret.wheelbase * 0.4
+
+    if ret.flags & HyundaiFlags.ANGLE_CONTROL:
+      ret.steerControlType = car.CarParams.SteerControlType.angle
 
     # Detect smartMDPS, which bypasses EPS low speed lockout, allowing sunnypilot to send steering commands down to 0
     if 0x2AA in fingerprint[0]:

@@ -7,7 +7,7 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 from cereal import car
 from panda.python import uds
 from openpilot.common.conversions import Conversions as CV
-from openpilot.selfdrive.car import dbc_dict
+from openpilot.selfdrive.car import AngleRateLimit, dbc_dict
 from openpilot.selfdrive.car.docs_definitions import CarFootnote, CarHarness, CarInfo, CarParts, Column
 from openpilot.selfdrive.car.fw_query_definitions import FwQueryConfig, Request, p16
 
@@ -17,6 +17,10 @@ Ecu = car.CarParams.Ecu
 class CarControllerParams:
   ACCEL_MIN = -4.0 # m/s^2
   ACCEL_MAX = 2.5 # m/s^2
+  STEER_ANGLE_MAX = 175
+  ANGLE_RATE_LIMIT_UP = AngleRateLimit(speed_bp=[0, 9, 16, 25], angle_v=[1.8, 1.6, 1.3, 0.8])
+  ANGLE_RATE_LIMIT_DOWN = AngleRateLimit(speed_bp=[0, 9, 16, 25], angle_v=[2.4, 2.0, 1.6, 1.0])
+  ANGLE_MAX_TORQUE = 200
 
   def __init__(self, CP):
     self.STEER_DELTA_UP = 3
@@ -65,6 +69,7 @@ class HyundaiFlags(IntFlag):
   SEND_LFA = 128
   USE_FCA = 256
   CANFD_HDA2_ALT_STEERING = 512
+  ANGLE_CONTROL = 1024
 
 
 class HyundaiFlagsSP(IntFlag):

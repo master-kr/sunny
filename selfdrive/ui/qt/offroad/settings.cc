@@ -331,6 +331,9 @@ DevicePanel::DevicePanel(SettingsWindow *parent) : ListWidget(parent) {
     }
   });
   addItem(resetCalibBtn);
+  // offroadTransition is not emitted when this panel opens after the car is
+  // already connected, so enable this action for the initial state as well.
+  resetCalibBtn->setEnabled(true);
 
   auto resetMapboxTokenBtn = new ButtonControl(
     tr("Reset Mapbox Access Token"), tr("RESET"),
