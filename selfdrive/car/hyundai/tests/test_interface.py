@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import unittest
+from unittest.mock import patch
 
 from openpilot.selfdrive.car import gen_empty_fingerprint
 from openpilot.selfdrive.car.hyundai.interface import CarInterface
@@ -8,8 +9,11 @@ from openpilot.selfdrive.car.hyundai.values import CAR, HyundaiFlags
 
 class TestIoniq5CanfdDetection(unittest.TestCase):
   @staticmethod
-  def get_params(fingerprint):
-    return CarInterface.get_params(CAR.IONIQ_5, fingerprint, [], False, False)
+  def get_params(fingerprint, selected_car=""):
+    with patch("openpilot.selfdrive.car.hyundai.interface.Params") as params:
+      params.return_value.get.return_value = selected_car
+      params.return_value.get_bool.return_value = False
+      return CarInterface.get_params(CAR.IONIQ_5, fingerprint, [], False, False)
 
   def test_hda2_on_internal_panda(self):
     fingerprint = gen_empty_fingerprint()
@@ -36,6 +40,28 @@ class TestIoniq5CanfdDetection(unittest.TestCase):
 
     CP = self.get_params(fingerprint)
 
+    self.assertFalse(CP.flags & HyundaiFlags.CANFD_HDA2)
+    self.assertEqual(len(CP.safetyConfigs), 2)
+
+  def test_selected_hda2_uses_hda2_layout_without_initial_camera_frames(self):
+    fingerprint = gen_empty_fingerprint()
+    fingerprint[4][0x123] = 8
+    CP = self.get_params(fingerprint, "Hyundai Ioniq 5 (with HDA II) 2022-23")
+    self.assertTrue(CP.flags & HyundaiFlags.CANFD_HDA2)
+    self.assertEqual(len(CP.safetyConfigs), 2)
+
+  def test_selected_carrot_can_uses_carrot_default_layout(self):
+    fingerprint = gen_empty_fingerprint()
+    fingerprint[4][0x123] = 8
+    CP = self.get_params(fingerprint, "Hyundai Ioniq 5 (Southeast Asia only) 2022-23")
+    self.assertFalse(CP.flags & HyundaiFlags.CANFD_HDA2)
+    self.assertFalse(CP.flags & HyundaiFlags.CANFD_CAMERA_SCC)
+    self.assertEqual(len(CP.safetyConfigs), 2)
+
+  def test_selected_hda1_overrides_ambiguous_hda2_frame(self):
+    fingerprint = gen_empty_fingerprint()
+    fingerprint[6][0x50] = 16
+    CP = self.get_params(fingerprint, "Hyundai Ioniq 5 (without HDA II) 2022-23")
     self.assertFalse(CP.flags & HyundaiFlags.CANFD_HDA2)
     self.assertEqual(len(CP.safetyConfigs), 2)
 

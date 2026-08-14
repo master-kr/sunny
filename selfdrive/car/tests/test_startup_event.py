@@ -17,6 +17,13 @@ class TestStartupEvent(unittest.TestCase):
   def test_bdv2_release_has_normal_startup(self, _comma_remote, _tested, _branch, _origin):
     self.assertEqual(get_startup_event(True, True, True), EventName.startup)
 
+  @patch("openpilot.selfdrive.car.car_helpers.get_normalized_origin", return_value="github.com/master-kr/openpilot")
+  @patch("openpilot.selfdrive.car.car_helpers.get_short_branch", return_value="release-c3-BDv2-source")
+  @patch("openpilot.selfdrive.car.car_helpers.is_tested_branch", return_value=False)
+  @patch("openpilot.selfdrive.car.car_helpers.is_comma_remote", return_value=False)
+  def test_bdv2_source_release_has_normal_startup(self, _comma_remote, _tested, _branch, _origin):
+    self.assertEqual(get_startup_event(True, True, True), EventName.startup)
+
   @patch("openpilot.selfdrive.car.car_helpers.get_normalized_origin", return_value="github.com/another/openpilot")
   @patch("openpilot.selfdrive.car.car_helpers.get_short_branch", return_value="release-c3-BDv2")
   @patch("openpilot.selfdrive.car.car_helpers.is_tested_branch", return_value=False)

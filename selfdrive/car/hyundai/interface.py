@@ -23,6 +23,25 @@ BUTTONS_DICT = {Buttons.RES_ACCEL: ButtonType.accelCruise, Buttons.SET_DECEL: Bu
 
 class CarInterface(CarInterfaceBase):
   @staticmethod
+  def _ioniq5_carrot_can(candidate, selected_car):
+    """Use carrot's default non-HDA2 bus layout without forcing Camera SCC."""
+    return candidate == CAR.IONIQ_5 and any(name in selected_car for name in (
+      "(HDA II - Carrot CAN)", "(Southeast Asia only)", "(HDA2 대체 조향)",
+    ))
+
+  @staticmethod
+  def _ioniq5_hda2_override(candidate, selected_car):
+    """Return the manually selected Ioniq 5 CAN-FD layout, if specified."""
+    if candidate != CAR.IONIQ_5:
+      return None
+    if (CarInterface._ioniq5_carrot_can(candidate, selected_car) or
+        "(without HDA II)" in selected_car or "(HDA I)" in selected_car or "(HDA1)" in selected_car):
+      return False
+    if "(HDA II - Native CAN)" in selected_car or "(with HDA II)" in selected_car or "(HDA2)" in selected_car:
+      return True
+    return None
+
+  @staticmethod
   def _get_params(ret, candidate, fingerprint, car_fw, experimental_long, docs):
     ret.carName = "hyundai"
     ret.radarUnavailable = RADAR_START_ADDR not in fingerprint[1] or DBC[ret.carFingerprint]["radar"] is None
@@ -38,8 +57,12 @@ class CarInterface(CarInterfaceBase):
     # looking for the camera's LKA steering messages. Use CanBus to select the external
     # panda buses in a comma three + red panda setup (CAM is bus 6, not bus 2).
     cam_can = CanBus(None, False, fingerprint).CAM
-    hda2 = (Ecu.adas in [fw.ecu for fw in car_fw] or
-            0x50 in fingerprint[cam_can] or 0x110 in fingerprint[cam_can])
+    detected_hda2 = (Ecu.adas in [fw.ecu for fw in car_fw] or
+                     0x50 in fingerprint[cam_can] or 0x110 in fingerprint[cam_can])
+    selected_car = Params().get("CarModelText", encoding="utf8") or ""
+    ioniq5_carrot_can = CarInterface._ioniq5_carrot_can(candidate, selected_car)
+    hda2_override = CarInterface._ioniq5_hda2_override(candidate, selected_car)
+    hda2 = detected_hda2 if hda2_override is None else hda2_override
     CAN = CanBus(None, hda2, fingerprint)
 
     if candidate in CANFD_CAR:
@@ -59,7 +82,7 @@ class CarInterface(CarInterfaceBase):
             ret.flags |= HyundaiFlags.CANFD_ALT_GEARS_2.value
           else:
             ret.flags |= HyundaiFlags.CANFD_ALT_GEARS.value
-        if candidate not in CANFD_RADAR_SCC_CAR:
+        if candidate not in CANFD_RADAR_SCC_CAR and not ioniq5_carrot_can:
           ret.flags |= HyundaiFlags.CANFD_CAMERA_SCC.value
     else:
       # Send LFA message on cars with HDA

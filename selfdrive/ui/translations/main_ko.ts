@@ -249,7 +249,15 @@ Please use caution when using this feature. Only use the blinker when traffic an
     </message>
     <message>
         <source>Are you sure you want to reset calibration?</source>
-        <translation>캘리브레이션을 초기화하시겠습니까?</translation>
+        <translation type="vanished">캘리브레이션을 초기화하시겠습니까?</translation>
+    </message>
+    <message>
+        <source>Disengage openpilot before resetting calibration.</source>
+        <translation>캘리브레이션을 초기화하려면 먼저 오픈파일럿 제어를 해제하세요.</translation>
+    </message>
+    <message>
+        <source>Reset calibration and reboot the device?</source>
+        <translation>캘리브레이션을 초기화하고 기기를 재부팅하시겠습니까?</translation>
     </message>
     <message>
         <source>Review Training Guide</source>
@@ -390,6 +398,34 @@ Please use caution when using this feature. Only use the blinker when traffic an
     <message>
         <source>sunnypilot requires the device to be mounted within 4° left or right and within 5° up or 9° down. sunnypilot is continuously calibrating, resetting is rarely required.</source>
         <translation>sunnypilot 기기는 좌우 4도, 위쪽 5도, 아래쪽 9도 이내로 장착해야 합니다. 주행 중 계속 자동 보정되므로 캘리브레이션 초기화는 거의 필요하지 않습니다.</translation>
+    </message>
+    <message>
+        <source>Deletes the camera calibration and learned steering torque values, then reboots the device. Use this after moving the device or when the driving path is consistently misaligned. Resetting is blocked while sunnypilot is engaged.</source>
+        <translation>카메라 캘리브레이션과 학습된 조향 토크 값을 삭제한 뒤 장치를 재부팅합니다. 장치 위치를 옮겼거나 주행 경로가 계속 한쪽으로 치우칠 때 사용하십시오. sunnypilot이 작동 중일 때는 초기화할 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Deletes the saved Mapbox access token. Mapbox maps will not work until a valid token is entered again.</source>
+        <translation>저장된 Mapbox 액세스 토큰을 삭제합니다. 유효한 토큰을 다시 입력할 때까지 Mapbox 지도를 사용할 수 없습니다.</translation>
+    </message>
+    <message>
+        <source>Restores sunnypilot feature settings to their defaults and reboots the device. Vehicle selection and calibration may need to be configured again.</source>
+        <translation>sunnypilot 기능 설정을 기본값으로 되돌리고 장치를 재부팅합니다. 차량 선택과 캘리브레이션을 다시 설정해야 할 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>Displays regulatory and certification information for this device.</source>
+        <translation>장치의 규제 및 인증 정보를 표시합니다.</translation>
+    </message>
+    <message>
+        <source>Changes the language used by the device interface. The interface restarts after a language is selected.</source>
+        <translation>장치 화면에서 사용할 언어를 변경합니다. 언어를 선택하면 화면이 다시 시작됩니다.</translation>
+    </message>
+    <message>
+        <source>OFF</source>
+        <translation>꺼짐</translation>
+    </message>
+    <message>
+        <source>Fleet Manager PIN: </source>
+        <translation>차량 관리자 PIN: </translation>
     </message>
 </context>
 <context>
@@ -545,6 +581,20 @@ Please use caution when using this feature. Only use the blinker when traffic an
         <source>Pause Steering</source>
         <translation>조향 일시 정지</translation>
     </message>
+    <message>
+        <source>Steering Mode After Braking</source>
+        <translation>브레이크 조작 후 조향 모드</translation>
+    </message>
+    <message>
+        <source>Choose how Automatic Lane Centering (ALC) behaves after the brake pedal is manually pressed in sunnypilot.
+
+Remain Active: ALC will remain active even after the brake pedal is pressed.
+Pause Steering: ALC will be paused after the brake pedal is manually pressed.</source>
+        <translation>sunnypilot 작동 중 운전자가 브레이크 페달을 밟았을 때 자동 차로 중앙 유지(ALC)가 어떻게 동작할지 선택합니다.
+
+계속 작동: 브레이크를 밟아도 ALC 조향을 계속 유지합니다.
+조향 일시 중지: 브레이크를 밟으면 ALC 조향을 일시 중지합니다.</translation>
+    </message>
 </context>
 <context>
     <name>MapETA</name>
@@ -663,63 +713,63 @@ Please use caution when using this feature. Only use the blinker when traffic an
     <name>OffroadAlert</name>
     <message>
         <source>Immediately connect to the internet to check for updates. If you do not connect to the internet, openpilot won&apos;t engage in %1</source>
-        <translation>즉시 인터넷에 연결하여 업데이트를 확인하세요. 인터넷에 연결되어 있지 않으면 %1 이후에는 openpilot이 활성화되지 않습니다.</translation>
+        <translation type="vanished">즉시 인터넷에 연결하여 업데이트를 확인하세요. 인터넷에 연결되어 있지 않으면 %1 이후에는 openpilot이 활성화되지 않습니다.</translation>
     </message>
     <message>
         <source>Connect to internet to check for updates. openpilot won&apos;t automatically start until it connects to internet to check for updates.</source>
-        <translation>업데이트를 확인하려면 인터넷에 연결하세요. openpilot은 업데이트를 확인하기 위해 인터넷에 연결할 때까지 자동으로 시작되지 않습니다.</translation>
+        <translation type="vanished">업데이트를 확인하려면 인터넷에 연결하세요. openpilot은 업데이트를 확인하기 위해 인터넷에 연결할 때까지 자동으로 시작되지 않습니다.</translation>
     </message>
     <message>
         <source>Unable to download updates
 %1</source>
-        <translation>업데이트를 다운로드할 수 없습니다
+        <translation type="vanished">업데이트를 다운로드할 수 없습니다
 %1</translation>
     </message>
     <message>
         <source>Invalid date and time settings, system won&apos;t start. Connect to internet to set time.</source>
-        <translation>날짜 및 시간 설정이 잘못되어 시스템이 시작되지 않습니다. 날짜와 시간을 동기화하려면 인터넷에 연결하세요.</translation>
+        <translation type="vanished">날짜 및 시간 설정이 잘못되어 시스템이 시작되지 않습니다. 날짜와 시간을 동기화하려면 인터넷에 연결하세요.</translation>
     </message>
     <message>
         <source>Taking camera snapshots. System won&apos;t start until finished.</source>
-        <translation>카메라 스냅샷 찍기가 완료될 때까지 시스템이 시작되지 않습니다.</translation>
+        <translation type="vanished">카메라 스냅샷 찍기가 완료될 때까지 시스템이 시작되지 않습니다.</translation>
     </message>
     <message>
         <source>An update to your device&apos;s operating system is downloading in the background. You will be prompted to update when it&apos;s ready to install.</source>
-        <translation>백그라운드에서 운영 체제에 대한 업데이트가 다운로드되고 있습니다. 설치가 준비되면 업데이트 메시지가 표시됩니다.</translation>
+        <translation type="vanished">백그라운드에서 운영 체제에 대한 업데이트가 다운로드되고 있습니다. 설치가 준비되면 업데이트 메시지가 표시됩니다.</translation>
     </message>
     <message>
         <source>Device failed to register. It will not connect to or upload to comma.ai servers, and receives no support from comma.ai. If this is an official device, visit https://comma.ai/support.</source>
-        <translation>장치를 등록하지 못했습니다. comma.ai 서버에 연결하거나 데이터를 업로드하지 않으며 comma.ai에서 지원을 받지 않습니다. 공식 장치인 경우 https://comma.ai/support 에 방문하여 문의하세요.</translation>
+        <translation type="vanished">장치를 등록하지 못했습니다. comma.ai 서버에 연결하거나 데이터를 업로드하지 않으며 comma.ai에서 지원을 받지 않습니다. 공식 장치인 경우 https://comma.ai/support 에 방문하여 문의하세요.</translation>
     </message>
     <message>
         <source>NVMe drive not mounted.</source>
-        <translation>NVMe 드라이브가 마운트되지 않았습니다.</translation>
+        <translation type="vanished">NVMe 드라이브가 마운트되지 않았습니다.</translation>
     </message>
     <message>
         <source>Unsupported NVMe drive detected. Device may draw significantly more power and overheat due to the unsupported NVMe.</source>
-        <translation>지원되지 않는 NVMe 드라이브가 감지되었습니다. 지원되지 않는 NVMe 드라이브는 많은 전력을 소비하고 장치를 과열시킬 수 있습니다.</translation>
+        <translation type="vanished">지원되지 않는 NVMe 드라이브가 감지되었습니다. 지원되지 않는 NVMe 드라이브는 많은 전력을 소비하고 장치를 과열시킬 수 있습니다.</translation>
     </message>
     <message>
         <source>openpilot was unable to identify your car. Your car is either unsupported or its ECUs are not recognized. Please submit a pull request to add the firmware versions to the proper vehicle. Need help? Join discord.comma.ai.</source>
-        <translation>openpilot이 차량을 식별할 수 없었습니다. 지원되지 않는 차량이거나 ECU가 인식되지 않습니다. 해당 차량에 맞는 펌웨어 버전을 추가하려면 PR을 제출하세요. 도움이 필요하시면 discord.comma.ai에 가입하세요.</translation>
+        <translation type="vanished">openpilot이 차량을 식별할 수 없었습니다. 지원되지 않는 차량이거나 ECU가 인식되지 않습니다. 해당 차량에 맞는 펌웨어 버전을 추가하려면 PR을 제출하세요. 도움이 필요하시면 discord.comma.ai에 가입하세요.</translation>
     </message>
     <message>
         <source>openpilot was unable to identify your car. Check integrity of cables and ensure all connections are secure, particularly that the comma power is fully inserted in the OBD-II port of the vehicle. Need help? Join discord.comma.ai.</source>
-        <translation>openpilot이 차량을 식별할 수 없었습니다. 케이블의 무결성을 점검하고 모든 연결부, 특히 comma power가 차량의 OBD-II 포트에 제대로 삽입되었는지 확인하세요. 도움이 필요하시면 discord.comma.ai에 가입하세요.</translation>
+        <translation type="vanished">openpilot이 차량을 식별할 수 없었습니다. 케이블의 무결성을 점검하고 모든 연결부, 특히 comma power가 차량의 OBD-II 포트에 제대로 삽입되었는지 확인하세요. 도움이 필요하시면 discord.comma.ai에 가입하세요.</translation>
     </message>
     <message>
         <source>openpilot detected a change in the device&apos;s mounting position. Ensure the device is fully seated in the mount and the mount is firmly secured to the windshield.</source>
-        <translation>openpilot 장치의 장착 위치가 변경되었습니다. 장치가 마운트에 완전히 장착되고 마운트가 앞유리에 단단히 고정되었는지 확인하세요. </translation>
+        <translation type="vanished">openpilot 장치의 장착 위치가 변경되었습니다. 장치가 마운트에 완전히 장착되고 마운트가 앞유리에 단단히 고정되었는지 확인하세요. </translation>
     </message>
     <message>
         <source>Device temperature too high. System cooling down before starting. Current internal component temperature: %1</source>
-        <translation>장치 온도가 너무 높습니다. 시작하기 전에 온도를 낮춰주세요. 현재 내부 부품 온도: %1</translation>
+        <translation type="vanished">장치 온도가 너무 높습니다. 시작하기 전에 온도를 낮춰주세요. 현재 내부 부품 온도: %1</translation>
     </message>
     <message>
         <source>OpenStreetMap database is out of date. New maps must be downloaded if you wish to continue using OpenStreetMap data for Enhanced Speed Control and road name display.
 
 %1</source>
-        <translation>OpenStreetMap 데이터가 오래되었습니다. 향상된 속도 제어와 도로명 표시에서 지도 데이터를 계속 사용하려면 새 지도를 다운로드해야 합니다.
+        <translation type="vanished">OpenStreetMap 데이터가 오래되었습니다. 향상된 속도 제어와 도로명 표시에서 지도 데이터를 계속 사용하려면 새 지도를 다운로드해야 합니다.
 
 %1</translation>
     </message>
@@ -849,6 +899,86 @@ Warning: You are on a metered connection!</source>
     <message>
         <source>Start Download</source>
         <translation>다운로드 시작</translation>
+    </message>
+    <message>
+        <source>Shows the installed map service version.</source>
+        <translation>설치된 지도 서비스 버전을 표시합니다.</translation>
+    </message>
+    <message>
+        <source>Shows the storage used by offline maps. Delete Maps removes all downloaded offline map data from the device.</source>
+        <translation>오프라인 지도가 사용하는 저장 공간을 표시합니다. 지도 삭제를 누르면 장치에 내려받은 오프라인 지도 데이터를 모두 삭제합니다.</translation>
+    </message>
+    <message>
+        <source>This will delete ALL downloaded maps
+
+Are you sure you want to delete all the maps?</source>
+        <translation>내려받은 지도를 모두 삭제합니다.
+
+정말 모든 지도를 삭제하시겠습니까?</translation>
+    </message>
+    <message>
+        <source>Yes, delete all the maps.</source>
+        <translation>예, 모든 지도를 삭제합니다.</translation>
+    </message>
+    <message>
+        <source>Deleting...</source>
+        <translation>삭제 중...</translation>
+    </message>
+    <message>
+        <source>DELETE</source>
+        <translation>삭제</translation>
+    </message>
+    <message>
+        <source>Checks for updates to the selected offline map database and starts downloading changed files.</source>
+        <translation>선택한 오프라인 지도 데이터베이스의 업데이트를 확인하고 변경된 파일을 내려받습니다.</translation>
+    </message>
+    <message>
+        <source>Selects the country whose offline map data will be downloaded. This branch provides South Korea as the supported country selection.</source>
+        <translation>오프라인 지도 데이터를 내려받을 국가를 선택합니다. 이 브랜치에서는 대한민국만 선택할 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>Fetching Country list...</source>
+        <translation>국가 목록 불러오는 중...</translation>
+    </message>
+    <message>
+        <source>Selects a state when the United States map region is selected.</source>
+        <translation>미국 지도 지역을 선택했을 때 주를 선택합니다.</translation>
+    </message>
+    <message>
+        <source>All States (~4.8 GB)</source>
+        <translation>모든 주(약 4.8GB)</translation>
+    </message>
+    <message>
+        <source>Fetching State list...</source>
+        <translation>주 목록 불러오는 중...</translation>
+    </message>
+    <message>
+        <source>Check status</source>
+        <translation>상태 확인</translation>
+    </message>
+    <message>
+        <source>Force Update</source>
+        <translation>강제 업데이트</translation>
+    </message>
+    <message>
+        <source>Download starting...</source>
+        <translation>다운로드 시작 중...</translation>
+    </message>
+    <message>
+        <source>Error: Invalid download. Retry.</source>
+        <translation>오류: 다운로드가 올바르지 않습니다. 다시 시도하십시오.</translation>
+    </message>
+    <message>
+        <source>Download complete!</source>
+        <translation>다운로드 완료!</translation>
+    </message>
+    <message>
+        <source>Calculating...</source>
+        <translation>계산 중...</translation>
+    </message>
+    <message>
+        <source>Calculating ETA...</source>
+        <translation>남은 시간 계산 중...</translation>
     </message>
 </context>
 <context>
@@ -1043,6 +1173,14 @@ This may take up to a minute.</source>
         <translation>현대/기아/제네시스</translation>
     </message>
     <message>
+        <source>HKG CAN: Smoother Stopping Performance (Beta)</source>
+        <translation>현대·기아·제네시스 CAN: 부드러운 정차(베타)</translation>
+    </message>
+    <message>
+        <source>Smoother stopping behind a stopped car or desired stopping event. This is only applicable to HKG CAN platforms using openpilot longitudinal control.</source>
+        <translation>정차한 앞차나 정지 지점 뒤에서 더 부드럽게 멈춥니다. openpilot 가감속 제어를 사용하는 현대·기아·제네시스 CAN 차량에만 적용됩니다.</translation>
+    </message>
+    <message>
         <source>Subaru</source>
         <translation>스바루</translation>
     </message>
@@ -1059,6 +1197,14 @@ This may take up to a minute.</source>
         <translation>토요타/렉서스</translation>
     </message>
     <message>
+        <source>Enable Stock Toyota Longitudinal Control</source>
+        <translation>토요타 순정 가감속 제어 사용</translation>
+    </message>
+    <message>
+        <source>sunnypilot will &lt;b&gt;not&lt;/b&gt; take over control of gas and brakes. Stock Toyota longitudinal control will be used.</source>
+        <translation>sunnypilot이 가속과 제동을 직접 제어하지 않고 토요타 순정 ACC의 가감속 제어를 사용합니다.</translation>
+    </message>
+    <message>
         <source>Allow M.A.D.S. toggling w/ LKAS Button (Beta)</source>
         <translation>LKAS 버튼으로 M.A.D.S. 전환 허용(베타)</translation>
     </message>
@@ -1069,6 +1215,22 @@ This may take up to a minute.</source>
     <message>
         <source>Note: Enabling this toggle may have unexpected behavior with steering control. It is the driver&apos;s responsibility to observe their environment and make decisions accordingly.</source>
         <translation>주의: 이 기능을 켜면 조향 제어가 예상과 다르게 작동할 수 있습니다. 운전자는 항상 주변을 확인하고 직접 안전을 판단해야 합니다.</translation>
+    </message>
+    <message>
+        <source>TSS2 Longitudinal: Custom Tuning</source>
+        <translation>TSS2 가감속 제어 맞춤 조정</translation>
+    </message>
+    <message>
+        <source>Smoother longitudinal performance for Toyota/Lexus TSS2/LSS2 cars. Big thanks to dragonpilot-community for this implementation.</source>
+        <translation>토요타·렉서스 TSS2/LSS2 차량의 가속과 제동을 더 부드럽게 조정합니다. 이 기능을 구현한 dragonpilot-community에 감사드립니다.</translation>
+    </message>
+    <message>
+        <source>Enable Stop and Go Hack</source>
+        <translation>정차 후 자동 재출발 보조 사용</translation>
+    </message>
+    <message>
+        <source>sunnypilot will allow some Toyota/Lexus cars to auto resume during stop and go traffic. This feature is only applicable to certain models. Use at your own risk.</source>
+        <translation>일부 토요타·렉서스 차량이 정체 구간에서 정차 후 자동으로 다시 출발하도록 합니다. 지원되는 일부 차종에서만 사용하고, 작동 상태를 항상 직접 확인하십시오.</translation>
     </message>
     <message>
         <source>Volkswagen</source>
@@ -1361,6 +1523,14 @@ This may take up to a minute.</source>
         <source>User Confirm: Inform the driver to change set speed of Adaptive Cruise Control to help the driver stay within the speed limit.</source>
         <translation>운전자 확인: 제한속도를 지킬 수 있도록 ACC 설정 속도 변경을 운전자에게 제안하고 확인을 받습니다.</translation>
     </message>
+    <message>
+        <source>Chooses whether speed-limit control applies a detected limit automatically or waits for driver confirmation. The active choice is highlighted below.</source>
+        <translation>인식한 제한속도를 자동으로 적용할지, 운전자 확인 후 적용할지 선택합니다. 현재 선택된 방식은 아래 설명에서 강조 표시됩니다.</translation>
+    </message>
+    <message>
+        <source>This platform defaults to &lt;b&gt;Auto&lt;/b&gt; mode. &lt;b&gt;User Confirm&lt;/b&gt; mode is not supported on this platform.&lt;br&gt;&lt;br&gt;</source>
+        <translation>이 차량은 &lt;b&gt;자동&lt;/b&gt; 모드가 기본이며 &lt;b&gt;운전자 확인&lt;/b&gt; 모드를 지원하지 않습니다.&lt;br&gt;&lt;br&gt;</translation>
+    </message>
 </context>
 <context>
     <name>SoftwarePanel</name>
@@ -1440,6 +1610,30 @@ This may take up to a minute.</source>
         <source>Driving Model</source>
         <translation>주행 모델</translation>
     </message>
+    <message>
+        <source>Blue Diamond v2 (December 12, 2023)</source>
+        <translation>Blue Diamond v2 (2023년 12월 12일)</translation>
+    </message>
+    <message>
+        <source>Shows the installed software version, branch, and commit.</source>
+        <translation>설치된 소프트웨어 버전, 브랜치와 커밋을 표시합니다.</translation>
+    </message>
+    <message>
+        <source>Checks for a newer revision and downloads it while the vehicle is off and the device is connected to the internet.</source>
+        <translation>차량 시동이 꺼져 있고 장치가 인터넷에 연결된 동안 새 버전을 확인하고 내려받습니다.</translation>
+    </message>
+    <message>
+        <source>Installs the downloaded update and reboots the device. Do not disconnect power during installation.</source>
+        <translation>내려받은 업데이트를 설치하고 장치를 재부팅합니다. 설치 중에는 전원을 분리하지 마십시오.</translation>
+    </message>
+    <message>
+        <source>Selects the Git branch used for future updates. Changing branches can alter vehicle support and settings.</source>
+        <translation>앞으로 업데이트할 Git 브랜치를 선택합니다. 브랜치를 바꾸면 차량 지원 방식과 설정이 달라질 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>Removes the installed driving software from this device after confirmation.</source>
+        <translation>확인 후 장치에 설치된 주행 소프트웨어를 제거합니다.</translation>
+    </message>
 </context>
 <context>
     <name>SoftwarePanelSP</name>
@@ -1468,6 +1662,30 @@ We STRONGLY suggest you to reset calibration, would you like to do that now?</so
     <message>
         <source>Warning: You are on a metered connection!</source>
         <translation>주의: 현재 데이터 종량제 연결을 사용 중입니다!</translation>
+    </message>
+    <message>
+        <source>Shows the active driving model. Select another model to download it; calibration reset is recommended after changing models.</source>
+        <translation>현재 사용 중인 주행 모델을 표시합니다. 다른 모델을 선택하면 내려받으며, 모델 변경 후에는 캘리브레이션 초기화를 권장합니다.</translation>
+    </message>
+    <message>
+        <source>Downloading [%1]... (%2%)</source>
+        <translation>[%1] 다운로드 중... (%2%)</translation>
+    </message>
+    <message>
+        <source>%1 downloaded</source>
+        <translation>%1 다운로드 완료</translation>
+    </message>
+    <message>
+        <source>Fetching models...</source>
+        <translation>모델 목록 불러오는 중...</translation>
+    </message>
+    <message>
+        <source>Continue on Metered</source>
+        <translation>데이터 요금 연결에서 계속</translation>
+    </message>
+    <message>
+        <source>Continue</source>
+        <translation>계속</translation>
     </message>
 </context>
 <context>
@@ -1540,6 +1758,10 @@ First</source>
         <source>Car First: Car -&gt; Nav -&gt; Map</source>
         <translation>차량 우선: 차량 → 내비 → 지도</translation>
     </message>
+    <message>
+        <source>Chooses which source provides the speed limit and the priority used when multiple sources are available. The currently selected policy is highlighted in the explanation.</source>
+        <translation>제한속도 정보를 가져올 출처와 여러 출처가 있을 때의 우선순위를 선택합니다. 현재 선택된 정책은 설명에서 강조 표시됩니다.</translation>
+    </message>
 </context>
 <context>
     <name>SpeedLimitWarningSettings</name>
@@ -1598,6 +1820,10 @@ First</source>
     <message>
         <source>Chime: The speed on the speed limit sign turns red and chimes to alert the driver when the cruising speed is faster than the speed limit plus the offset.</source>
         <translation>화면 표시 및 알림음: 주행 속도가 기준을 넘으면 제한속도 표지판의 숫자를 빨간색으로 표시하고 알림음을 울립니다.</translation>
+    </message>
+    <message>
+        <source>Chooses how the driver is warned when vehicle speed exceeds the detected speed limit plus the configured warning offset. The active choice is highlighted below.</source>
+        <translation>차량 속도가 인식된 제한속도와 설정한 경고 여유값을 초과할 때 알림 방식을 선택합니다. 현재 선택된 방식은 아래 설명에서 강조 표시됩니다.</translation>
     </message>
 </context>
 <context>
@@ -1851,6 +2077,46 @@ First</source>
     <message>
         <source>Reach out to the sunnypilot team in the &lt;font color=&apos;white&apos;&gt;&lt;b&gt;#tuning-nnlc channel at the sunnypilot Discord server&lt;/b&gt;&lt;/font&gt; with feedback, or to provide log data for your car if your car is currently unsupported.</source>
         <translation>사용 소감이나 미지원 차량의 주행 로그를 제공하려면 &lt;font color=&apos;white&apos;&gt;&lt;b&gt;sunnypilot Discord의 #tuning-nnlc 채널&lt;/b&gt;&lt;/font&gt;로 문의하십시오.</translation>
+    </message>
+    <message>
+        <source>Dynamic Lane Profile</source>
+        <translation>동적 차선 프로필</translation>
+    </message>
+    <message>
+        <source>Choose how the driving path is calculated. Laneful emphasizes detected lane lines, Laneless follows the model path, and Auto switches between them according to lane recognition confidence and road conditions. Laneless is the default.</source>
+        <translation>주행 경로를 계산하는 방식을 선택합니다. 차선 기반은 인식된 차선을 우선하고, 차선 비의존은 모델 경로를 따르며, 자동은 차선 인식 신뢰도와 도로 상황에 따라 두 방식을 전환합니다. 기본값은 차선 비의존입니다.</translation>
+    </message>
+    <message>
+        <source>FRICTION - Live &amp; Offline</source>
+        <translation>마찰 보정 - 실시간 및 재시작 후</translation>
+    </message>
+    <message>
+        <source>FRICTION - Offline Only</source>
+        <translation>마찰 보정 - 재시작 후만</translation>
+    </message>
+    <message>
+        <source>LAT_ACCEL_FACTOR - Live &amp; Offline</source>
+        <translation>횡가속 계수 - 실시간 및 재시작 후</translation>
+    </message>
+    <message>
+        <source>LAT_ACCEL_FACTOR - Offline Only</source>
+        <translation>횡가속 계수 - 재시작 후만</translation>
+    </message>
+    <message>
+        <source>Fuzzy</source>
+        <translation>유사 일치</translation>
+    </message>
+    <message>
+        <source>Exact</source>
+        <translation>정확히 일치</translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;Contact the sunnypilot team in the &lt;font color=&apos;white&apos;&gt;#tuning-nnlc channel on the sunnypilot Discord server&lt;/font&gt; and provide driving logs to add NNLC support for your car.</source>
+        <translation>&lt;br&gt;차량의 NNLC 지원을 추가하려면 sunnypilot Discord 서버의 &lt;font color=&apos;white&apos;&gt;#tuning-nnlc 채널에서 sunnypilot 팀에 문의하고 주행 로그를 제공하십시오.&lt;/font&gt;</translation>
+    </message>
+    <message>
+        <source> | Match = </source>
+        <translation> | 일치 방식 = </translation>
     </message>
 </context>
 <context>
@@ -2123,6 +2389,13 @@ SLC, V-TSC 또는 M-TSC 중 하나 이상과 함께 사용해야 합니다.</tra
     </message>
 </context>
 <context>
+    <name>VehiclePanel</name>
+    <message>
+        <source>Select your car</source>
+        <translation>차량 선택</translation>
+    </message>
+</context>
+<context>
     <name>VisualsPanel</name>
     <message>
         <source>Display Braking Status</source>
@@ -2231,6 +2504,34 @@ SLC, V-TSC 또는 M-TSC 중 하나 이상과 함께 사용해야 합니다.</tra
     <message>
         <source>Max</source>
         <translation>최대</translation>
+    </message>
+    <message>
+        <source>Hides the large current-speed display from the driving screen. Speed information in other UI areas is not affected.</source>
+        <translation>주행 화면의 큰 현재 속도 표시를 숨깁니다. 다른 화면 영역의 속도 정보에는 영향을 주지 않습니다.</translation>
+    </message>
+    <message>
+        <source>Developer UI</source>
+        <translation>개발자 정보</translation>
+    </message>
+    <message>
+        <source>Displays either 5 or 10 real-time diagnostic metrics on the driving screen. Select Off to hide them.</source>
+        <translation>주행 화면에 실시간 진단 정보를 5개 또는 10개 표시합니다. 숨기려면 꺼짐을 선택하십시오.</translation>
+    </message>
+    <message>
+        <source>Metrics above Chevron</source>
+        <translation>앞차 표시 위 정보</translation>
+    </message>
+    <message>
+        <source>Displays distance or relative speed above the lead-vehicle chevron. This is available only when openpilot controls acceleration and braking.</source>
+        <translation>앞차를 나타내는 갈매기표 위에 거리 또는 상대속도를 표시합니다. openpilot이 가속과 제동을 제어하는 차량에서만 사용할 수 있습니다.</translation>
+    </message>
+    <message>
+        <source>Display Temperature on Sidebar</source>
+        <translation>측면 정보창 온도 표시</translation>
+    </message>
+    <message>
+        <source>Selects which temperature appears in the driving-screen sidebar: ambient, memory, CPU, GPU, or the highest measured value. Select Off to hide it.</source>
+        <translation>주행 화면 측면 정보창에 표시할 온도를 선택합니다. 외기, 메모리, CPU, GPU 또는 측정값 중 최고 온도를 표시할 수 있으며, 숨기려면 꺼짐을 선택하십시오.</translation>
     </message>
 </context>
 <context>

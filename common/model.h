@@ -1,1 +1,1 @@
-#define CURRENT_MODEL "Farmville (November 7, 2023)"
+#define CURRENT_MODEL "Blue Diamond v2 (December 12, 2023)"
