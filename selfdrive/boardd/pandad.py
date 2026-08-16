@@ -115,7 +115,7 @@ def main() -> NoReturn:
       # sort pandas to have deterministic order
       # Keep the internal Panda first so external Red Panda CAN buses always
       # receive the expected +4 bus offset.
-      pandas.sort(key=lambda p: (not p.is_internal(), p.get_type(), p.get_usb_serial()))
+      pandas.sort(key=lambda p: (not p.is_internal(), str(p.get_type()), p.get_usb_serial()))
       panda_serials = [p.get_usb_serial() for p in pandas]
 
       # log panda fw versions
@@ -143,7 +143,7 @@ def main() -> NoReturn:
           else:
             # Wait for an external Panda to enumerate again before launching
             # boardd. This avoids losing Red Panda after its firmware reset.
-            panda.reset(reconnect=True)
+            panda.reset(reconnect=False)
 
       for p in pandas:
         p.close()
