@@ -74,6 +74,11 @@ def main() -> NoReturn:
       cloudlog.event("pandad.flash_and_connect", count=count)
       params.remove("PandaSignatures")
 
+      # Give the C3 USB/SPI interfaces time to settle after boot or after a
+      # firmware transition before attempting hardware-level recovery.
+      if time.monotonic() < 25.:
+        no_internal_panda_count = 0
+
       # Handle missing internal panda
       if no_internal_panda_count > 0:
         if no_internal_panda_count == 3:
@@ -136,14 +141,11 @@ def main() -> NoReturn:
             # update time from RTC
             set_time(cloudlog)
 
-          # reset panda to ensure we're in a good state
+          # Reset through the Panda transport and wait until it reconnects.
+          # This is required when switching from newer carrot firmware: the
+          # newer bootstub can take longer to make the C3 internal Panda ready.
           cloudlog.info(f"Resetting panda {panda.get_usb_serial()}")
-          if panda.is_internal():
-            HARDWARE.reset_internal_panda()
-          else:
-            # Wait for an external Panda to enumerate again before launching
-            # boardd. This avoids losing Red Panda after its firmware reset.
-            panda.reset(reconnect=False)
+          panda.reset(reconnect=True)
 
       for p in pandas:
         p.close()
